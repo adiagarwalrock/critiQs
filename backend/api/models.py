@@ -12,6 +12,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.content_id) + '-' + self.body[:15]
-
-    # def total_likes(self):
-    #     return self.likes.count()
