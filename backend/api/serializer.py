@@ -1,11 +1,15 @@
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User. Group
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User, Group
 
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from .models import Comment
+
+from django.contrib.auth import get_user_model as user_model
+
+
+User = user_model()
 
 
 class CommentSerializer(ModelSerializer):
@@ -15,7 +19,6 @@ class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
-        # fields = ('content_id', 'body', 'user')
 
 
 class UserSerializer(serializers.ModelSerializer):

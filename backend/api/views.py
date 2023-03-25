@@ -1,6 +1,6 @@
 import io
 
-from django.contrib.auth.models import User, Group
+# from django.contrib.auth.models import User, Group
 # from django.contrib.auth import login
 # from django.db.models import F
 # from django.http.response import JsonResponse
@@ -144,7 +144,7 @@ class ContentCommentsAPIView(APIView):
             content_id=content_id).order_by('-date_created')
         if not comment_instance:
             return Response(
-                {"detail": "Object with given id does not exist"},
+                {"details": "Object with given id does not exist"},
                 status=status.HTTP_400_BAD_REQUEST
             )
         serializer = CommentSerializer(comment_instance, many=True)

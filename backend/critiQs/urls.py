@@ -39,6 +39,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('', include('api.urls')),
 
+    path('auth/', include('accounts.urls')),
+
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger',

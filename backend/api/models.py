@@ -1,5 +1,8 @@
+from django.contrib.auth import get_user_model as user_model
 from django.db import models
-from django.contrib.auth.models import User
+
+
+User = user_model()
 
 
 class Comment(models.Model):
