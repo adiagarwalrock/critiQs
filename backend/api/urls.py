@@ -8,6 +8,9 @@ from .views import (
     ContentCommentsAPIView,
     CommentDeleteAPIView,
     CommentUpdateAPIView,
+
+    TopRatedMovieList,
+    MovieDetail,
 )
 
 urlpatterns = [
@@ -30,4 +33,13 @@ urlpatterns = [
 
     # Update a comment
     path('comment/<int:pk>/update/', CommentUpdateAPIView.as_view()),
+
+
+
+    # List all movies
+    path('movie/top_rated/', TopRatedMovieList.as_view()),
+
+
+    # Movie details
+    # path('movie/<int:pk>/', MovieDetail.as_view()),
 ]
