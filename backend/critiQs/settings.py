@@ -142,5 +142,10 @@ REST_FRAMEWORK = {
 
 
 SWAGGER_SETTINGS = {
-    'VALIDATOR_URL': 'http://localhost:8189',
+    'VALIDATOR_URL': None,
+}
+
+
+REDOC_SETTINGS = {
+    'LAZY_RENDERING': False,
 }
