@@ -16,7 +16,6 @@ class Comment(models.Model):
 
 
 class Genre(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -30,6 +29,7 @@ class Movie(models.Model):
     release_date = models.DateField()
     vote_average = models.FloatField()
     poster_path = models.CharField(max_length=255)
+    backdrop_path = models.CharField(max_length=255)
     popularity = models.FloatField()
     adult = models.BooleanField()
     imdb_id = models.CharField(max_length=255)

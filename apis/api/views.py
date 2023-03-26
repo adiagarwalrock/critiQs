@@ -26,24 +26,6 @@ from .serializer import (
 MOVIE_API_KEY = 'f6792b478e6716a30e6af1fb17c30419'
 
 
-def check_if_error_response(response):
-    """
-    Function to check if the response from TMDb API is successful or not.
-    """
-    data = response.json()
-    # Check if the TMDb API response is successful
-    if response.status_code == requests.codes.ok:
-        return Response(data)
-    else:
-        # Map TMDb status code to standard REST status code
-        if response.status_code == 404:
-            status_code = status.HTTP_404_NOT_FOUND
-        else:
-            status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-        message = data.get('status_message', 'Unknown error')
-        return Response({'detail': message}, status=status_code)
-
-
 class MoviePagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
@@ -86,9 +68,21 @@ class MovieDetail(RetrieveAPIView):
     def get(self, request, movie_id):
         url = f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={MOVIE_API_KEY}'
         response = requests.get(url)
-        data = response.json()
 
-        return check_if_error_response(response)
+        data = response.json()
+        # Check if the TMDb API response is successful
+        if response.status_code == requests.codes.ok:
+            serializer = self.serializer_class(data)
+            # return Response(data)
+            return Response(serializer.data)
+        else:
+            # Map TMDb status code to standard REST status code
+            if response.status_code == 404:
+                status_code = status.HTTP_404_NOT_FOUND
+            else:
+                status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+            message = data.get('status_message', 'Unknown error')
+            return Response({'detail': message}, status=status_code)
 
 
 class CommentListCreateAPIView(ListCreateAPIView):

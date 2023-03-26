@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from .models import Comment
+from .models import Comment, Genre, Movie
 
 from django.contrib.auth import get_user_model as user_model
 
@@ -25,6 +25,10 @@ class GenreSerializerForAPI(serializers.Serializer):
     id = serializers.IntegerField()
     name = serializers.CharField(allow_null=True)
 
+    class Meta:
+        model = Genre
+        fields = '__all__'
+
 
 class MovieSerializer(serializers.Serializer):
     id = serializers.IntegerField()
@@ -33,7 +37,10 @@ class MovieSerializer(serializers.Serializer):
     release_date = serializers.DateField(allow_null=True)
     vote_average = serializers.FloatField(allow_null=True)
     poster_path = serializers.CharField(allow_null=True)
+    backdrop_path = serializers.CharField(allow_null=True)
     popularity = serializers.FloatField(allow_null=True)
     adult = serializers.BooleanField(allow_null=True)
     imdb_id = serializers.CharField(allow_null=True)
-    genre_ids = serializers.ListField(allow_null=True)
+    vote_average = serializers.FloatField(allow_null=True)
+    vote_count = serializers.IntegerField(allow_null=True)
+    genres = serializers.ListField(allow_null=True)
