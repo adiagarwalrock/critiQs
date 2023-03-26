@@ -39,7 +39,6 @@ urlpatterns = [
     # List all movies
     path('movie/top_rated/', TopRatedMovieList.as_view()),
 
-
     # Movie details
-    # path('movie/<int:pk>/', MovieDetail.as_view()),
+    path('movie/<int:movie_id>/', MovieDetail.as_view(), name='movie-detail'),
 ]

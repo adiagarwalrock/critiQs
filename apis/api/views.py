@@ -26,6 +26,24 @@ from .serializer import (
 MOVIE_API_KEY = 'f6792b478e6716a30e6af1fb17c30419'
 
 
+def check_if_error_response(response):
+    """
+    Function to check if the response from TMDb API is successful or not.
+    """
+    data = response.json()
+    # Check if the TMDb API response is successful
+    if response.status_code == requests.codes.ok:
+        return Response(data)
+    else:
+        # Map TMDb status code to standard REST status code
+        if response.status_code == 404:
+            status_code = status.HTTP_404_NOT_FOUND
+        else:
+            status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+        message = data.get('status_message', 'Unknown error')
+        return Response({'detail': message}, status=status_code)
+
+
 class MoviePagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
@@ -34,13 +52,12 @@ class MoviePagination(PageNumberPagination):
 
 class TopRatedMovieList(ListAPIView):
     """
-    API for accessing the list of movies that are top rated.
+    # API for accessing the list of movies that are top rated.
     """
     serializer_class = MovieSerializer
     pagination_class = MoviePagination
 
     def get_queryset(self):
-        # print(self.request.query_params.get('page'))
         page = self.request.query_params.get('page')
         response = requests.get('https://api.themoviedb.org/3/movie/top_rated', params={
             'api_key': MOVIE_API_KEY,
@@ -48,7 +65,6 @@ class TopRatedMovieList(ListAPIView):
             'page': page,
         })
         data = response.json()
-        # print(data)
         return data.get("results", [])
 
     def list(self, request):
@@ -63,23 +79,21 @@ class TopRatedMovieList(ListAPIView):
 
 class MovieDetail(RetrieveAPIView):
     """
-    API for accessing the details of a movie.
+    # API for getting details for movie a movie.
     """
     serializer_class = MovieSerializer
 
-    def get_queryset(self):
-        movie_id = self.kwargs['pk']
-        response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}', params={
-            'api_key': MOVIE_API_KEY,
-            'language': 'en-US',
-        })
+    def get(self, request, movie_id):
+        url = f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={MOVIE_API_KEY}'
+        response = requests.get(url)
         data = response.json()
-        return data
+
+        return check_if_error_response(response)
 
 
 class CommentListCreateAPIView(ListCreateAPIView):
     """
-    List all comments & Create a new comment
+    # List all comments & Create a new comment
     """
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -91,7 +105,7 @@ class CommentListCreateAPIView(ListCreateAPIView):
 
 class CommentDetailDataView(RetrieveAPIView):
     """
-    Retrieve a comment details
+    # Retrieve a comment details
     """
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -99,8 +113,8 @@ class CommentDetailDataView(RetrieveAPIView):
 
 class CommentDeleteAPIView(DestroyAPIView):
     """
-    Delete a comment after checking if the
-    request user is the owner of the comment
+    # Delete a comment
+    After checking if the request user is the owner of the comment
     """
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -122,7 +136,7 @@ class CommentDeleteAPIView(DestroyAPIView):
 
 class UserCommentListAPIView(ListAPIView):
     """
-    List all comments of a user
+    # List all comments of a user
     """
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -134,7 +148,7 @@ class UserCommentListAPIView(ListAPIView):
 
 class CommentUpdateAPIView(UpdateAPIView):
     """
-    API to update a comment by the owner of the comment
+    # API to update a comment by the owner of the comment
     """
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -156,23 +170,22 @@ class CommentUpdateAPIView(UpdateAPIView):
 
 class ContentCommentsAPIView(APIView):
     """
-    API to get comments for a given content
+    # API to get comments for a given content
     """
 
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, content_id, *args, **kwargs):
-        '''
-        API to FETCH comments for a given content id.
-
+        """
+        # API to FETCH comments for a given content id.
         args:
-            content_id: id of the content
-            type: int
+            * content_id: id of the content
+            * type: int
 
         returns:
-            list: comments for a given content id
-            type: list of dict
-        '''
+            * list: comments for a given content id
+            * type: list of dict
+        """
         comment_instance = Comment.objects.filter(
             content_id=content_id).order_by('-date_created')
         if not comment_instance:

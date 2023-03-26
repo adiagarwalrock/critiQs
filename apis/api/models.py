@@ -32,7 +32,7 @@ class Movie(models.Model):
     poster_path = models.CharField(max_length=255)
     popularity = models.FloatField()
     adult = models.BooleanField()
-    # imdb_id = models.CharField(max_length=255)
+    imdb_id = models.CharField(max_length=255)
     genre_ids = models.ManyToManyField(Genre)
 
     def __str__(self):

@@ -18,7 +18,7 @@ JWT_SECRET_KEY = 'SECRET_KEY'
 
 class RegisterView(generics.GenericAPIView):
     """
-    View to register a new user.
+    # To register a new user.
     """
     serializer_class = SignUpSerializer
 
@@ -35,7 +35,7 @@ class RegisterView(generics.GenericAPIView):
 
 class LoginView(APIView):
     """
-    View to login a user.
+    # To login a user.
     """
 
     def post(self, request: Request) -> Response:
@@ -69,7 +69,7 @@ class LoginView(APIView):
 
 class UserView(APIView):
     """
-    View to get user details if the user is authenticated.
+    # To get user details if the user is authenticated.
     """
 
     def get(self, request):
@@ -92,7 +92,7 @@ class UserView(APIView):
 
 class LogoutView(APIView):
     """
-    View to logout a user.
+    # To logout a user.
     """
 
     def post(self, request: Request) -> Response:

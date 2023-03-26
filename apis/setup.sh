@@ -1,0 +1,1 @@
+pip install django djangorestframework django-cors-headers drf-yasg PyJWT
