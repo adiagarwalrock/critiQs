@@ -1,0 +1,25 @@
+<div class="container-fluid my-2">
+    <div class="row">
+        <div class="col-13 m-auto">
+            <div class="owl-carousel owl-theme">
+                {% for item in popular_movies %}
+                <div class="item">
+                    <div class="card" style="width: 12rem;">
+                        <img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
+                            class="card-img-top img-thumbnail" height="200" alt="{{item.title}} original image">
+                        <div class="carousel-caption d-none d-md-block">
+                            <p>
+                                <span class="badge bg-primary">⭐ {{item.vote_average}}</span>
+                                {% if item.adult %}
+                                <span class="badge bg-danger">+18</span>
+                                {% endif %}
+                                <span class="badge bg-success">{{item.original_language}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
