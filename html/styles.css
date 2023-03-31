@@ -509,7 +509,7 @@
   
   
   .jumbotron {
-    background-image: url('/Users/surya/Downloads/img.jpg');
+    background-image: url('/Users/surya/Desktop/HCI/critiQs/html/img/slide1.jpg');
     background-size: cover;
     background-position: center;
     height: 80vh;
@@ -595,68 +595,7 @@
     margin-left: 3px;
     font-weight: bold;
   }
-  /* .movie-navigation {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .movie-navigation ul {
-    display: inline-block;
-    list-style: none;
-    padding: 0;
-  }
-  
-  .movie-navigation li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  
-  .movie-navigation li a {
-    color: #fff;
-    background-color: #333;
-    border-radius: 3px;
-    padding: 5px 10px;
-    text-decoration: none;
-  }
-  
-  .movie-navigation li a:hover {
-    background-color: #666;
-  } */
-  
-  /* .pagination-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-  }
-  
-  .prev-button,
-  .next-button {
-    background-color: #333;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 18px;
-    margin: 0 10px;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-  }
-  
-  .prev-button:hover,
-  .next-button:hover {
-    background-color: #555;
-  }
-  
-  .prev-button:disabled,
-  .next-button:disabled {
-    cursor: default;
-    opacity: 0.5;
-  }
-  
-  .prev-button:focus,
-  .next-button:focus {
-    outline: none;
-  } */
+
   .pagination {
     display: flex;
     justify-content: center;
@@ -698,51 +637,6 @@
   .pagination .next {
     margin-left: 5px;
   }
-  
-  /* .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .pagination a {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 0 5px;
-    background-color: #f2f2f2;
-    color: #333;
-    text-decoration: none;
-    border-radius: 5px;
-  }
-  
-  .pagination a.active {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  .pagination a:hover {
-    background-color: #ddd;
-  }
-  
-  .pagination .prev, .pagination .next {
-    font-weight: bold;
-  }
-  
-  .pagination .prev.disabled, .pagination .next.disabled {
-    color: #aaa;
-    cursor: default;
-  }
-  
-  .pagination .prev {
-    margin-right: auto;
-  }
-  
-  .pagination .next {
-    margin-left: auto;
-  } */
-  
-  
   
   
   /* Footer Styles */
