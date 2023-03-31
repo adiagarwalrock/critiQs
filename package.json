@@ -1,0 +1,19 @@
+{
+  "name": "critiqs",
+  "version": "1.0.0",
+  "description": "- critiQs is a web application that allows users to view online content descriptions and post their reviews. The app is designed for cinephiles who want to share their thoughts on the latest releases and discover new movies/shows to watch.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adiagarwalrock/critiQs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adiagarwalrock/critiQs/issues"
+  },
+  "homepage": "https://github.com/adiagarwalrock/critiQs#readme"
+}
