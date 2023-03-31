@@ -3,6 +3,7 @@
         <div class="col-13 m-auto">
             <div class="owl-carousel owl-theme">
                 {% for item in popular_movies %}
+                <!-- Loop for creting multiple movies -->
                 <div class="item">
                     <div class="card" style="width: 12rem;">
                         <img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
@@ -18,6 +19,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Loop for creting multiple movies -->
                 {% endfor %}
             </div>
         </div>
