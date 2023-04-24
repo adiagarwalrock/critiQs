@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}{% load humanize %}
+
+
+
+{% block title %} - Movie Detail {% endblock %}
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block body %}
+
+<h1>{{movie.title}} </h1>
+
+
+{% for key,value in movie.items %}
+
+<p>
+    <b>{{key}}</b>: {{value}}
+</p>
+
+{% endfor %}
+
+
+<hr>
+
+
+<p>
+<h2>Cast</h2>
+{% for cast in credits %}
+<div class="card" style="width: 12rem;">
+    <img src="https://image.tmdb.org/t/p/w500{{cast.profile_path}}" class="card-img-top img-thumbnail" height="200"
+        alt="{{cast.name}} original image">
+    <div class="carousel-caption d-none d-md-block">
+        <p>
+            <span class="badge bg-primary">{{cast.name}}</span>
+            <span class="badge bg-success">{{cast.character}}</span>
+        </p>
+    </div>
+</div>
+{% endfor %}
+</p>
+
+<hr>
+
+<p>
+<h2>Similar</h2>
+{% for item in similar %}
+<div class="item">
+    <div class="card" style="width: 12rem;">
+        <img src="https://image.tmdb.org/t/p/w500/{{item.poster_path}}" class="card-img-top img-thumbnail" height="200"
+            alt="{{item.title}} original image">
+        <div class="carousel-caption d-none d-md-block">
+            <p>
+                <span class="badge bg-primary">⭐ {{item.vote_average}}</span>
+                {% if item.adult %}
+                <span class="badge bg-danger">+18</span>
+                {% endif %}
+                <span class="badge bg-success">{{item.original_language}}</span>
+            </p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</p>
+
+<hr>
+
+<p>
+
+<h2>Comments</h2>
+
+<h3>User Comments</h3>
+
+{% for comment in comments %}
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">{{comment.user.username}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{comment.date_created}}</h6>
+        <p class="card-text">{{comment.body}}</p>
+    </div>
+</div>
+{% endfor %}
+
+
+<form method="post">
+    {% csrf_token %}
+    {{form.body.label}}
+    {{form.body}}
+    <button type="submit" class="btn btn-primary">Submit
+    </button>
+</form>
+
+</p>
+
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}{% load humanize %}
+
+
+
+{% block title %} - Home {% endblock %}
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block body %}
+
+<h1><u>CritiQs</u></h1>
+
+
+<h2><u>Carousel</u></h2>
+{% for item in carousel %}
+<img src="https://image.tmdb.org/t/p/original{{item.backdrop_path}}">
+<h3 class="">Title: {{item.title}}</h3>
+<p class="">Overview: {{item.overview}}</p>
+<span class="">Rating: {{item.vote_average}}</span>
+<span class="">Release Date: {{item.release_date}}</span>
+{% if item.adult %}
+<span class="">Adult: +18</span>
+{% endif %}
+<span class="">Language: {{item.original_language}}</span>
+
+{% endfor %}
+
+<hr>
+
+<h2><u>Popular</u></h2>
+
+{% for item in popular_movies %}
+<div class="item">
+    <div class="card" style="width: 12rem;">
+        <img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" class="card-img-top img-thumbnail" height="200"
+            alt="{{item.title}} original image">
+        <div class="carousel-caption d-none d-md-block">
+            <p>
+                <span class="badge bg-primary">⭐ {{item.vote_average}}</span>
+                {% if item.adult %}
+                <span class="badge bg-danger">+18</span>
+                {% endif %}
+                <span class="badge bg-success">{{item.original_language}}</span>
+            </p>
+        </div>
+    </div>
+</div>
+<a href="{% url 'movie_details' item.id %}"> >> details >> </a>
+{% endfor %}
+
+<hr>
+
+{% endblock %}

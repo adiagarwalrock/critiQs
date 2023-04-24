@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import requests
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = "django-insecure-!zo8mda$3j1l@ij!b1b#n&2#)mu02^-(y8u(b(v-qis(*3mql-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -36,12 +37,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
     "drf_yasg",
     "api",
     "accounts",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
+    "core",
 ]
 
 AUTH_USER_MODEL = "accounts.User"
@@ -126,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
+# STATIC_ROOT = "static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -161,3 +165,10 @@ REDOC_SETTINGS = {
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True
+
+GENERES = requests.get("https://api.themoviedb.org/3/genre/movie/list?api_key=2047301ce07f8b38d14b386373e7a94d&language=en-US",
+                       timeout=5,
+                       headers={'Content-Type': 'application/json'}).json()['genres']
+
+
+MOVIE_API_KEY = 'f6792b478e6716a30e6af1fb17c30419'
