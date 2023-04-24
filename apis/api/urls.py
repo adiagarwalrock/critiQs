@@ -9,8 +9,9 @@ from .views import (
     CommentDeleteAPIView,
     CommentUpdateAPIView,
 
-    TopRatedMovieList,
-    MovieDetail,
+    TopRatedMovieListView,
+    MovieDetailView,
+    GenreListView
 )
 
 urlpatterns = [
@@ -37,8 +38,11 @@ urlpatterns = [
 
 
     # List all movies
-    path('movie/top_rated/', TopRatedMovieList.as_view()),
+    path('movie/top_rated/', TopRatedMovieListView.as_view()),
 
     # Movie details
-    path('movie/<int:movie_id>/', MovieDetail.as_view(), name='movie-detail'),
+    path('movie/<int:movie_id>/', MovieDetailView.as_view(), name='movie-detail'),
+
+    # List all genres
+    path('genre/', GenreListView.as_view()),
 ]

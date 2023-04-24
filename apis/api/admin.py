@@ -8,10 +8,10 @@ from .models import Comment
 class CommentAdmin(admin.ModelAdmin):
     list_display = [
         'id',
+        'body',
         'content_id',
-        'user',
         'date_created',
-        'body'
+        'user',
     ]
 
     list_filter = ('user', 'date_created', 'content_id')

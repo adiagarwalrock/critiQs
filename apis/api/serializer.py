@@ -21,13 +21,13 @@ class CommentSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class GenreSerializerForAPI(serializers.Serializer):
+class GenreSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     name = serializers.CharField(allow_null=True)
 
-    class Meta:
-        model = Genre
-        fields = '__all__'
+    # class Meta:
+    #     model = Genre
+    #     fields = '__all__'
 
 
 class MovieSerializer(serializers.Serializer):

@@ -1,3 +1,5 @@
+from django.conf import settings
+
 import requests
 
 from rest_framework import (
@@ -20,10 +22,11 @@ from .models import Comment
 from .serializer import (
     CommentSerializer,
     MovieSerializer,
+    GenreSerializer,
 )
 
 
-MOVIE_API_KEY = 'f6792b478e6716a30e6af1fb17c30419'
+MOVIE_API_KEY = settings.MOVIE_API_KEY
 
 
 class MoviePagination(PageNumberPagination):
@@ -32,7 +35,7 @@ class MoviePagination(PageNumberPagination):
     max_page_size = 50
 
 
-class TopRatedMovieList(ListAPIView):
+class TopRatedMovieListView(ListAPIView):
     """
     # API for accessing the list of movies that are top rated.
     """
@@ -59,7 +62,7 @@ class TopRatedMovieList(ListAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class MovieDetail(RetrieveAPIView):
+class MovieDetailView(RetrieveAPIView):
     """
     # API for getting details for movie a movie.
     """
@@ -74,6 +77,33 @@ class MovieDetail(RetrieveAPIView):
         if response.status_code == requests.codes.ok:
             serializer = self.serializer_class(data)
             # return Response(data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            # Map TMDb status code to standard REST status code
+            if response.status_code == 404:
+                status_code = status.HTTP_404_NOT_FOUND
+            else:
+                status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+            message = data.get('status_message', 'Unknown error')
+            return Response({'detail': message}, status=status_code)
+
+
+class GenreListView(APIView):
+    """
+    # API for accessing the list of genres.
+    """
+    serializer_class = GenreSerializer
+
+    def get(self, request):
+        url = f'https://api.themoviedb.org/3/genre/movie/list?api_key={MOVIE_API_KEY}'
+        response = requests.get(url)
+
+        data = response.json()
+        print(data)
+        # Check if the TMDb API response is successful
+        if response.status_code == requests.codes.ok:
+            serializer = self.serializer_class(data)
+            return Response(data)
             return Response(serializer.data)
         else:
             # Map TMDb status code to standard REST status code
@@ -83,6 +113,26 @@ class MovieDetail(RetrieveAPIView):
                 status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
             message = data.get('status_message', 'Unknown error')
             return Response({'detail': message}, status=status_code)
+
+    # def get(self, request):
+    #     data = self._get_genre_data()
+    #     serializer = self.serializer_class(data=data[0], many=True)
+    #     if serializer.is_valid():
+    #         return Response(data)
+    #         return Response(serializer.data)
+    #     else:
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # def _get_genre_data(self):
+    #     url = f'https://api.themoviedb.org/3/genre/movie/list?api_key={MOVIE_API_KEY}'
+    #     response = requests.get(url)
+    #     data = response.json()
+
+    #     if response.status_code == requests.codes.ok:
+    #         return data.get('genres', [])
+    #     else:
+    #         raise Exception(
+    #             f'TMDb API error: {data.get("status_message", "Unknown error")}')
 
 
 class CommentListCreateAPIView(ListCreateAPIView):
@@ -119,11 +169,11 @@ class CommentDeleteAPIView(DestroyAPIView):
         if instance.user == self.request.user:
             self.perform_destroy(instance)
             return Response(
-                {"response": "Comment deleted!"},
+                {"detail": "Comment deleted!"},
                 status=status.HTTP_200_OK
             )
         return Response(
-            {"response": "You are not the owner of this comment!"},
+            {"detail": "You are not the owner of this comment!"},
             status=status.HTTP_400_BAD_REQUEST
         )
 
@@ -153,11 +203,11 @@ class CommentUpdateAPIView(UpdateAPIView):
         if instance.user == self.request.user:
             self.perform_update(instance)
             return Response(
-                {"response": "Comment updated!"},
+                {"detail": "Comment updated!"},
                 status=status.HTTP_200_OK
             )
         return Response(
-            {"response": "You are not the owner of this comment!"},
+            {"detail": "You are not the owner of this comment!"},
             status=status.HTTP_400_BAD_REQUEST
         )
 
@@ -184,7 +234,7 @@ class ContentCommentsAPIView(APIView):
             content_id=content_id).order_by('-date_created')
         if not comment_instance:
             return Response(
-                {"details": "Object with given id does not exist"},
+                {"detail": "Object with given id does not exist"},
                 status=status.HTTP_400_BAD_REQUEST
             )
         serializer = CommentSerializer(comment_instance, many=True)
