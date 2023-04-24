@@ -12,17 +12,127 @@
 
 
 {% block body %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url("https://via.placeholder.com/1920x1080");
+        background-size: cover;
+        background-position: center;
+    }
+    
+    header {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    h1 {
+        margin: 0;
+        font-size: 36px;
+    }
+    
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+    }
+    
+    .poster {
+        float: left;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        max-width: 300px;
+    }
+    
+    .details {
+        overflow: hidden;
+    }
+    
+    .details h2 {
+        margin-top: 0;
+        color: #333;
+    }
+    
+    .details p {
+        margin-top: 10px;
+        font-size: 18px;
+        color: #666;
+    }
+    
+    .plot {
+        margin-top: 20px;
+    }
+    
+    .plot h3 {
+        margin-top: 0;
+        color: #333;
+    }
+    
+    .plot p {
+        margin-top: 10px;
+        color: #666;
+    }
+    
+    .cast {
+        margin-top: 20px;
+    }
+    
+    .cast h3 {
+        margin-top: 0;
+        color: #333;
+    }
+    
+    .cast ul {
+        margin-top: 10px;
+        list-style-type: none;
+        padding-left: 0;
+    }
+    
+    .cast li {
+        margin-bottom: 10px;
+    }
+    
+    .cast img {
+        float: left;
+        margin-right: 10px;
+        max-width: 100px;
+        border-radius: 50%;
+    }
+    
+    .cast p {
+        margin: 0;
+        font-size: 16px;
+        color: #666;
+    }
+</style>
+
 
 <h1>{{movie.title}} </h1>
+<img src="https://image.tmdb.org/t/p/original{{movie.backdrop_path}}" height="400" width="400">
 
-
-{% for key,value in movie.items %}
 
 <p>
-    <b>{{key}}</b>: {{value}}
+    <b>Budget: </b> {{movie.budget}}
+    <b>Generes: </b> 
+        {% for i in movie.genres %}
+            {{i.name}}
+        {% endfor %}
+    <b>Homepage: </b> {{movie.homepage}}
+    <b>Languages Available: </b> 
+    {% for i in movie.spoken_languages %}
+        {{i.english_name}}
+    {% endfor %}
+    <b>Description: </b> {{movie.overview}}
+    <b>Date Released: </b> {{movie.release_date}}
+    <b>Running time: </b> {{movie.runtime}}
+   
 </p>
 
-{% endfor %}
+
 
 
 <hr>
