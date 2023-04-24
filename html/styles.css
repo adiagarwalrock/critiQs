@@ -417,7 +417,7 @@
 
 
     .jumbotron {
-        background-image: url('/Users/surya/Desktop/HCI/critiQs/html/img/slide1.jpg');
+        background-image: url('/html/img/slide1.jpg');
         background-size: cover;
         background-position: center;
         height: 80vh;
