@@ -41,38 +41,51 @@
 <hr>
 
 
-<p>
+
 <h2>Cast</h2>
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="container">
+<div class="row">
 {% for cast in credits %}
 <div class="card" style="width: 12rem;">
     {%if cast.profile_path %}
-
+   
     <img src="https://image.tmdb.org/t/p/w500{{cast.profile_path}}" class="card-img-top img-thumbnail" height="200"
         alt="{{cast.name}} original image">
         {%else %}
         <img src="https://www.shutterstock.com/image-vector/male-default-placeholder-avatar-profile-260nw-387516193.jpg" class="card-img-top img-thumbnail" height="200"
         alt="{{cast.name}} original image">
         {%endif%}
-    <div class="carousel-caption d-none d-md-block">
+        
         <p>
             <span class="badge bg-primary">{{cast.name}}</span>
             <span class="badge bg-success">{{cast.character}}</span>
         </p>
-    </div>
+    
 </div>
 {% endfor %}
-</p>
+</div>
+</div>
+</div>
+</div>
 
-<hr>
+
+
+<hr />
 
 <p>
 <h2>Similar</h2>
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="container">
+<div class="row">
 {% for item in similar %}
-<div class="item">
+
     <div class="card" style="width: 12rem;">
         <img src="https://image.tmdb.org/t/p/w500/{{item.poster_path}}" class="card-img-top img-thumbnail" height="200"
             alt="{{item.title}} original image">
-        <div class="carousel-caption d-none d-md-block">
+        
             <p>
                 <span class="badge bg-primary">⭐ {{item.vote_average}}</span>
                 {% if item.adult %}
@@ -80,11 +93,14 @@
                 {% endif %}
                 <span class="badge bg-success">{{item.original_language}}</span>
             </p>
-        </div>
+        
     </div>
-</div>
 {% endfor %}
-</p>
+</div>
+</div>
+</div>
+</div>
+
 
 <hr>
 
