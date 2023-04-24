@@ -172,3 +172,7 @@ GENERES = requests.get("https://api.themoviedb.org/3/genre/movie/list?api_key=20
 
 
 MOVIE_API_KEY = 'f6792b478e6716a30e6af1fb17c30419'
+
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
+LOGIN_URL = "login"

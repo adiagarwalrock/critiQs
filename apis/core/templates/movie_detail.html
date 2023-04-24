@@ -76,15 +76,21 @@
 <h3>User Comments</h3>
 
 {% for comment in comments %}
-<div class="card" style="width: 18rem;">
+<p>
+
+<div class="card">
     <div class="card-body">
         <h5 class="card-title">{{comment.user.username}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{comment.date_created}}</h6>
+        <span class="card-subtitle mb-2 text-muted">{{comment.date_created}}</span>
         <p class="card-text">{{comment.body}}</p>
     </div>
 </div>
+</p>
 {% endfor %}
 
+
+{% if user.is_authenticated %}
+<p>
 
 <form method="post">
     {% csrf_token %}
@@ -93,8 +99,15 @@
     <button type="submit" class="btn btn-primary">Submit
     </button>
 </form>
+</p>
+
+{% else %}
+<p>
+    <a href="{% url 'login' %}" class="btn btn-primary">Login to Comment</a>
 
 </p>
+
+{% endif %}
 
 
 {% endblock %}
