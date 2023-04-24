@@ -45,8 +45,14 @@
 <h2>Cast</h2>
 {% for cast in credits %}
 <div class="card" style="width: 12rem;">
+    {%if cast.profile_path %}
+
     <img src="https://image.tmdb.org/t/p/w500{{cast.profile_path}}" class="card-img-top img-thumbnail" height="200"
         alt="{{cast.name}} original image">
+        {%else %}
+        <img src="https://www.shutterstock.com/image-vector/male-default-placeholder-avatar-profile-260nw-387516193.jpg" class="card-img-top img-thumbnail" height="200"
+        alt="{{cast.name}} original image">
+        {%endif%}
     <div class="carousel-caption d-none d-md-block">
         <p>
             <span class="badge bg-primary">{{cast.name}}</span>
