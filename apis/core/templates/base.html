@@ -88,28 +88,49 @@
             </header>
         </div>
 
-        <div class="b-example-divider"></div>
 
 
         {% block body %}
         {% endblock %}
 
-        <footer class="bg-dark text-light">
-            <div class="container py-3">
+        <footer class="bg-dark text-white py-5">
+            <div class="container">
               <div class="row">
-                <div class="col-md-6">
-                  <p>&copy; 2023 critiQs. All Rights Reserved.</p>
+                <div class="col-md-3">
+                  <h5 class="mb-3">About Us</h5>
+                  <p>critiQs is a web application that allows users to view online content descriptions and post their reviews. The app is designed for cinephiles who want to share their thoughts on the latest releases and discover new movies/shows to watch.</p>
                 </div>
-                <div class="col-md-6 text-md-end">
-                  <a href="#">Privacy Policy</a>
-                  <span class="mx-2">|</span>
-                  <a href="#">Terms of Use</a>
+                <div class="col-md-3">
+                  <h5 class="mb-3">Contact Us</h5>
+                  <ul class="list-unstyled">
+                    <li><i class="bi bi-geo-alt"></i> 420, Give Full Marks, This Project Is Best, TBBT 07307</li>
+                    <li><i class="bi bi-phone"></i> (123) 456-7890</li>
+                    <li><i class="bi bi-envelope"></i><a href="mailto:info@example.com"> info@example.com</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-3">
+                  <h5 class="mb-3">Follow Us</h5>
+                  <ul class="list-unstyled">
+                    <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="bi bi-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="bi bi-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="bi bi-linkedin"></i> LinkedIn</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row mt-5">
+                <div class="col-12">
+                  <p class="text-center">&copy; critiQs 2023 . All rights reserved.</p>
                 </div>
               </div>
             </div>
           </footer>
           
+          
 
     </body>
+
+    {% block js %}
+    {% endblock%}
 
 </html>

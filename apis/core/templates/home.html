@@ -1,5 +1,14 @@
 {% extends 'base.html' %} {% load static %}{% load humanize %} {% block title %}
-- Home {% endblock %} {% block head %} {% endblock %} {% block body %}
+- Home {% endblock %} {% block head %} {% endblock %} 
+
+
+
+
+
+{% block body %}
+
+
+
 
 <div
   id="carouselExampleCaptions"
@@ -50,13 +59,11 @@
 
 
 <div class="container">
-<h2 class="display-6">Popular</h2>
-<div class="carousel-inner">
-  <div class="carousel-item active">
-   
+  <h2 class="display-6">Popular</h2>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
       <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 g-4">
         {% for item in popular_movies %}
-
         <div class="col mb-4">
           <div class="card h-100">
             <a href="{% url 'movie_details' item.id %}">
@@ -75,11 +82,26 @@
                 <div class="position-absolute bottom-0 start-0 p-2 bg-dark">
                   <h6 class="text-light fs-6">{{item.title}}</h6>
                 </div>
+                <div class="tooltip-body d-none">
+                  <p class="m-0">
+                    <div>
+                      <div>
+                        <span>🕔 {{item.release_date}}</span>
+                        {%if item.adult%}
+                        <span>
+                          <span class="badge bg-warning text-dark">+18 </span>
+                        </span>
+                        {%endif%}
+                        </div>
+                      <div>{{item.overview}}</div>
+                    
+                  </div>
+                  </p>
+                </div>
               </div>
             </a>
           </div>
         </div>
-
         {% endfor %}
       </div>
     </div>
@@ -91,4 +113,26 @@
 
 
 
+
 {% endblock %}
+
+
+
+
+{% block js %}
+
+
+<script>
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('.card'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl, {
+      title: tooltipTriggerEl.querySelector('.tooltip-body').innerHTML,
+      placement: 'bottom',
+      html: true
+    })
+  })
+</script>
+
+
+
+    {% endblock%}
