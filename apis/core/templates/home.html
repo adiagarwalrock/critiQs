@@ -8,14 +8,17 @@
 >
   <div class="carousel-inner">
     {% for item in carousel %}
-    <div class="carousel-item active" id="id_{{forloop.counter}}">
+    <div class="carousel-item{% if forloop.first %} active{% endif %}" id="id_{{forloop.counter}}">
+      
       <img
         src="https://image.tmdb.org/t/p/original{{item.backdrop_path}}"
         class="d-block w-100"
         alt="..."
-        width="auto"
-        height="auto"
+        style="max-height: 100vh; width: auto;"
+        {% comment %} width="auto"
+        height="auto" {% endcomment %}
       />
+      
       <div class="carousel-caption d-none d-md-block">
         <h5>{{item.title}}</h5>
         <p>{{item.overview}}</p>
@@ -23,6 +26,8 @@
     </div>
     {% endfor %}
   </div>
+</div>
+
   <button
     class="carousel-control-prev"
     type="button"
@@ -43,36 +48,47 @@
   </button>
 </div>
 
-<hr />
 
-<h2><u>Popular</u></h2>
 <div class="container">
-<div class="row">
-  {% for item in popular_movies %}
+<h2 class="display-6">Popular</h2>
+<div class="carousel-inner">
+  <div class="carousel-item active">
+   
+      <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 g-4">
+        {% for item in popular_movies %}
 
-  <div class="card" style="width: 15rem">
-    <a href="{% url 'movie_details' item.id %}">
-    <img
-      src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
-      class="card-img-top img-thumbnail"
-      height="200"
-      alt="{{item.title}} original image"
-    />
-    </a>
-    <div class="carousel-caption d-none d-md-block">
-      <p>
-        {% if item.adult %}
-        <span class="badge bg-danger">+18</span>
-        {% endif %}
-      </p>
+        <div class="col mb-4">
+          <div class="card h-100">
+            <a href="{% url 'movie_details' item.id %}">
+              <div class="position-relative">
+                <img
+                  src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
+                  class="card-img-top"
+                  alt="{{item.title}} original image"
+                />
+                <div class="position-absolute top-0 start-0 m-2">
+                  <span class="badge bg-primary">{{item.original_language}}</span>
+                </div>
+                <div class="position-absolute top-0 end-0 m-2">
+                  <span class="badge bg-secondary">🌟 {{item.vote_average}}</span>
+                </div>
+                <div class="position-absolute bottom-0 start-0 p-2 bg-dark">
+                  <h6 class="text-light fs-6">{{item.title}}</h6>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        {% endfor %}
+      </div>
     </div>
-    <a href="{% url 'movie_details' item.id %}"> {{item.title}} </a>
   </div>
-
-  {% endfor %}
-</div>
 </div>
 
-<hr />
+
+
+
+
 
 {% endblock %}
