@@ -25,41 +25,41 @@
 
                     {% else %}
 
-                    <h4 class="card-title">Hi! Let's get you Authenticated!</h3>
-                        <p class="card-text">
-                        <div class="container">
-                            <div class="row align-items-start pt-3">
-                                <h5 class="card-subtitle mb-2 text-body-secondary">Login</h5>
-                                <form method="POST">
-                                    <div class="col">
-                                        <div>
-                                            {% csrf_token %}
-                                            <p>
-                                                <label for="id_username">Username:</label>
-                                                <input type="username" name="username" class="form-control" autofocus
-                                                    placeholder="Username" autocapitalize="none" autocomplete="Username"
-                                                    maxlength="150" required id="id_username">
-                                            </p>
-                                            <p>
-                                                <label for="id_password">Password:</label>
-                                                <input type="password" class="form-control" name="password"
-                                                    autocomplete="current-password" required id="id_password"
-                                                    placeholder="Password">
-                                            </p>
-                                        </div>
+                    <h3 class="card-title">Hi! Let's get you Authenticated!</h3>
+                    <p class="card-text">
+                    <div class="container">
+                        <div class="row align-items-start pt-3">
+                            <h5 class="card-subtitle mb-2 text-body-secondary">Login</h5>
+                            <form method="POST">
+                                <div class="col">
+                                    <div>
+                                        {% csrf_token %}
+                                        <p>
+                                            <label for="id_username">Username:</label>
+                                            <input type="username" name="username" class="form-control" autofocus
+                                                placeholder="Username" autocapitalize="none" autocomplete="Username"
+                                                maxlength="150" required id="id_username">
+                                        </p>
+                                        <p>
+                                            <label for="id_password">Password:</label>
+                                            <input type="password" class="form-control" name="password"
+                                                autocomplete="current-password" required id="id_password"
+                                                placeholder="Password">
+                                        </p>
                                     </div>
+                                </div>
 
-                                    <div class="col">
-                                        <button type="submit" class="btn btn-success">Login</button>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-success">Login</button>
 
-                                    </div>
-                                </form>
-                            </div>
-
+                                </div>
+                            </form>
                         </div>
-                        </p>
 
-                        {% endif %}
+                    </div>
+                    </p>
+
+                    {% endif %}
             </div>
         </div>
     </div>
