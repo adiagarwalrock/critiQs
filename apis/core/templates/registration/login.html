@@ -14,56 +14,48 @@
 {% block body %}
 
 
+
 <main>
-    <div class="d-flex  justify-content-center mt-5">
-        <div class="custom-card" style="width: 50%;">
-            <div class="card-body">
-                {% if user.is_authenticated %}
-                <h4 class="card-title">You are already Logged in!</h3>
-
-                    <a href="{% url 'home' %}" type="button" class="btn btn-primary">Home</a>
-
-                    {% else %}
-
-                    <h4 class="card-title">Hi! Let's get you Authenticated!</h3>
-                        <p class="card-text">
-                        <div class="container">
-                            <div class="row align-items-start pt-3">
-                                <h5 class="card-subtitle mb-2 text-body-secondary">Login</h5>
-                                <form method="POST">
-                                    <div class="col">
-                                        <div>
-                                            {% csrf_token %}
-                                            <p>
-                                                <label for="id_username">Username:</label>
-                                                <input type="username" name="username" class="form-control" autofocus
-                                                    placeholder="Username" autocapitalize="none" autocomplete="Username"
-                                                    maxlength="150" required id="id_username">
-                                            </p>
-                                            <p>
-                                                <label for="id_password">Password:</label>
-                                                <input type="password" class="form-control" name="password"
-                                                    autocomplete="current-password" required id="id_password"
-                                                    placeholder="Password">
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <button type="submit" class="btn btn-success">Login</button>
-
-                                    </div>
-                                </form>
-                            </div>
-
-                        </div>
-                        </p>
-
-                        {% endif %}
+    <div class="d-flex justify-content-center mt-5">
+      <div class="custom-card" style="width: 50%;">
+        <div class="card-body">
+          {% if user.is_authenticated %}
+          <h4 class="card-title">You are already logged in!</h4>
+  
+          <div class="text-center mt-4">
+            <a href="{% url 'home' %}" type="button" class="btn btn-primary">Go Home</a>
+          </div>
+  
+          {% else %}
+  
+          <h4 class="card-title">Hi! Let's get you authenticated!</h4>
+          <hr>
+  
+          <div class="container mt-4">
+            <div class="row align-items-center">
+              <div class="col">
+                <form method="POST">
+                  {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="id_username" class="form-label">Username:</label>
+                    <input type="username" name="username" class="form-control" autofocus placeholder="Enter your username" autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+                  </div>
+                  <div class="mb-3">
+                    <label for="id_password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" name="password" autocomplete="current-password" required id="id_password" placeholder="Enter your password">
+                  </div>
+                  <button type="submit" class="btn btn-success">Login</button>
+                </form>
+              </div>
             </div>
+          </div>
+  
+          {% endif %}
         </div>
+      </div>
     </div>
-</main>
+  </main>
+  
 
 
 

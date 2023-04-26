@@ -38,16 +38,74 @@
 	</head>
 
 	<body>
+    <style>
+      .card {
+          transition: all 0.2s ease-in-out;
+          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+          border: none;
+          margin-bottom: 0rem;
+      }
+      
+      .card:hover {
+          box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+          transform: translateY(-5px);
+      }
+      
+      .card-img-top {
+          object-fit: cover;
+      }
+      
+      .card-title {
+          font-weight: bold;
+          margin-bottom: 0;
+      }
+      
+      .card-text {
+          margin-bottom: 0;
+      }
+      
+      .card-info {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.8);
+          color: white;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          opacity: 0;
+          transition: opacity 0.2s ease-in-out;
+      }
+      
+      .card:hover .card-info {
+          opacity: 1;
+      }
+      
+      .card-info p {
+          margin-bottom: 0.5rem;
+      }
+      
+      .card-info span {
+          font-weight: bold;
+      }
+      
+      .badge {
+          margin-right: 0.5rem;
+      }
+  </style>
 
 		<div class="container">
 			<header
 				class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
-				<h3>
+				<h1>
 					<a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-decoration-none">
 						CritiQs
 					</a>
-				</h3>
+				</h1>
 
 				<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
 					<li><a href="#" class="nav-link px-2">Movies</a></li>
