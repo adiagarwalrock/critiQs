@@ -52,7 +52,7 @@
 
 
 
-<div class="container">
+
 
 	<div class="container">
     <div class="row">
@@ -68,7 +68,7 @@
           <a href="{% url 'movie_details' item.id %}">
             <div class="position-relative">
               <img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" class="card-img-top rounded-3 shadow"
-                alt="{{item.title}} original image" />
+                alt="{{item.title}} original image" style="height: 300px; object-fit: cover;" />
               <div class="position-absolute top-0 start-0 m-2">
                 <span class="badge bg-primary">{{item.original_language}}</span>
               </div>
@@ -86,7 +86,7 @@
                       {%endif%}
                     </div>
                   </div>
-  
+    
                   <div class="mt-2">
                     <p class="text-light">{{item.overview|truncatewords:20}}</p>
                   </div>
@@ -100,8 +100,7 @@
         </div> {% endcomment %}
       </div>
       {% endfor %}
-    </div>
-  </div>
+    </div>    
 </div>  
 
 
@@ -110,7 +109,6 @@
 
 {% block js %}
 
-<div>
 	<script>
 		var tooltipTriggerList = [].slice.call(document.querySelectorAll('.card'))
 		var tooltipList = tooltipTriggerList.map(
@@ -126,7 +124,6 @@
 		)
 
 	</script>
-</div>
 
 
 
