@@ -53,59 +53,56 @@
 
 
 <div class="container">
-	<div>
-		<h2 class="display-6">Popular</h2>
-	</div>
 
-	<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 g-4">
-		{% for item in popular_movies %}
-		<div class="col mb-4">
-			<div class="card">
-				<a href="{% url 'movie_details' item.id %}">
-					<div class="position-relative">
-						<img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" class="card-img-top"
-							alt="{{item.title}} original image" />
-						<div class="position-absolute top-0 start-0 m-2">
-							<span class="badge bg-primary">{{item.original_language}}</span>
-						</div>
-						<div class="position-absolute top-0 end-0 m-2">
-							<span class="badge bg-secondary">🌟 {{item.vote_average}}</span>
-						</div>
-						{% comment %}
-						<div class="position-absolute bottom-0 start-0 p-2 bg-dark">
-							<span class="text-light fs-6">{{item.title}}</span>
-						</div>
-						{% endcomment %}
-
-						<div class="tooltip-body d-none">
-							<div>
-								<div>
-									<span>🕔 {{item.release_date}}</span>
-									{%if item.adult%}
-									<span>
-										<span class="badge bg-warning text-dark">+18 </span>
-									</span>
-									{%endif%}
-								</div>
-
-								<div>
-									<p>{{item.overview}}</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div>
-				<center>
-					<span class="">{{item.title}}</span>
-				</center>
-			</div>
-		</div>
-		{% endfor %}
-	</div>
-</div>
-
+	<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-center display-4 mb-5">Popular Movies</h2>
+      </div>
+    </div>
+  
+    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center">
+      {% for item in popular_movies %}
+      <div class="col mb-2">
+        <div class="card h-100 border-0">
+          <a href="{% url 'movie_details' item.id %}">
+            <div class="position-relative">
+              <img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" class="card-img-top rounded-3 shadow"
+                alt="{{item.title}} original image" />
+              <div class="position-absolute top-0 start-0 m-2">
+                <span class="badge bg-primary">{{item.original_language}}</span>
+              </div>
+              <div class="position-absolute top-0 end-0 m-2">
+                <span class="badge bg-secondary rounded-pill">🌟 {{item.vote_average}}</span>
+              </div>
+              <div class="tooltip-body d-none">
+                <div>
+                  <div>
+                    <div class="">{{item.title}}</div>
+                    <div>
+                    <span class="badge bg-secondary rounded-pill">🕔 {{item.release_date}}</span>
+                    {%if item.adult%}
+                      <span class="badge bg-warning text-dark rounded-pill">+18 </span>
+                      {%endif%}
+                    </div>
+                  </div>
+  
+                  <div class="mt-2">
+                    <p class="text-light">{{item.overview|truncatewords:20}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% comment %} <div class="mt-2">
+          <h6 class="text-center mb-0">{{item.title}}</h6>
+        </div> {% endcomment %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>  
 
 
 {% endblock %}
