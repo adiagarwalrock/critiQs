@@ -1,15 +1,21 @@
+import requests
 from api.models import Comment
-from .forms import CommentForm
+from .forms import (
+    CommentForm,
+    CustomUserCreationForm,
+)
 
 from django.conf import settings
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, CreateView
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 
-import requests
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 
 API_KEY = settings.MOVIE_API_KEY
 
@@ -126,6 +132,6 @@ class MovieDetailView(CreateView):
 
 
 class SignUpView(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy("login")
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy("home")
     template_name = "registration/signup.html"

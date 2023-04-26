@@ -13,7 +13,7 @@ class CustomUserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, username, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -23,17 +23,20 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self.create_user(email=email, password=password, **extra_fields)
+        return self.create_user(username=username, password=password, **extra_fields)
 
 
 class User(AbstractUser):
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(
+        max_length=255, blank=True, null=True)
     username = models.CharField(max_length=255, unique=True)
     date_of_birth = models.DateField(null=True, blank=True)
+    # profile_picture = models.ImageField(
+    #     upload_to='profile_pictures', blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
 
     objects = CustomUserManager()
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
         return self.username

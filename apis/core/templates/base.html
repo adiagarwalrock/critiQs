@@ -97,6 +97,12 @@
       }
   </style>
 
+		<style>
+			.no_decor {
+				text-decoration: none;
+			}
+		</style>
+
 		<div class="container">
 			<header
 				class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -125,8 +131,20 @@
 				</ul>
 
 				<div class="col-md-0 text-end">
+
 					{% if user.is_authenticated %}
-					<a href="{% url 'logout' %}" type="button" class="btn btn-outline-danger me-2">Logout</a>
+
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+						data-bs-toggle="dropdown" aria-expanded="false">
+						{{user.username}}
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+						<li><a class="dropdown-item" href="#">Action</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+					</ul>
 					{% else %}
 					<a href="{% url 'login' %}" type="button" class="btn btn-outline-primary me-2">Login</a>
 					<a href="{% url 'signup' %}" type="button" class="btn btn-primary">Sign-up</a>
@@ -144,57 +162,59 @@
 
 
 		<footer class="bg-dark text-white py-4">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 mb-4 mb-md-0">
-            <h5>About Us</h5>
-            <p class="text-muted">
-              CritiQs is a web application designed for movie lovers to share their thoughts on the latest releases and discover new movies and TV shows to watch.
-            </p>
-          </div>
-          <div class="col-md-4 mb-4 mb-md-0">
-            <h5>Contact Us</h5>
-            <ul class="list-unstyled text-small">
-              <li class="d-flex align-items-center mb-2">
-                <i class="bi bi-geo-alt me-2"></i>420, Give Full Marks, This Project Is Best, TBBT 07307
-              </li>
-              <li class="d-flex align-items-center mb-2">
-                <i class="bi bi-phone me-2"></i>(123) 456-7890
-              </li>
-              <li class="d-flex align-items-center mb-2">
-                <i class="bi bi-envelope me-2"></i><a href="mailto:info@example.com" class="text-muted">info@example.com</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <h5>Follow Us</h5>
-            <ul class="list-unstyled text-small">
-              <li class="d-flex align-items-center mb-2">
-                <a href="#" class="me-3 text-white">
-                  <i class="bi bi-facebook"></i>
-                </a>
-                <a href="#" class="me-3 text-white">
-                  <i class="bi bi-twitter"></i>
-                </a>
-                <a href="#" class="me-3 text-white">
-                  <i class="bi bi-instagram"></i>
-                </a>
-                <a href="#" class="me-3 text-white">
-                  <i class="bi bi-linkedin"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="row mt-5">
-          <div class="col-12">
-            <p class="text-center text-muted small">
-              &copy; CritiQs 2023. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 mb-4 mb-md-0">
+						<h5>About Us</h5>
+						<p class="text-muted">
+							CritiQs is a web application designed for movie lovers to share their thoughts on the latest
+							releases and discover new movies and TV shows to watch.
+						</p>
+					</div>
+					<div class="col-md-4 mb-4 mb-md-0">
+						<h5>Contact Us</h5>
+						<ul class="list-unstyled text-small">
+							<li class="d-flex align-items-center mb-2">
+								<i class="bi bi-geo-alt me-2"></i>420, Give Full Marks, This Project Is Best, TBBT 07307
+							</li>
+							<li class="d-flex align-items-center mb-2">
+								<i class="bi bi-phone me-2"></i>(123) 456-7890
+							</li>
+							<li class="d-flex align-items-center mb-2">
+								<i class="bi bi-envelope me-2"></i><a href="mailto:info@example.com"
+									class="text-muted">info@example.com</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-4">
+						<h5>Follow Us</h5>
+						<ul class="list-unstyled text-small">
+							<li class="d-flex align-items-center mb-2">
+								<a href="#" class="me-3 text-white">
+									<i class="bi bi-facebook"></i>
+								</a>
+								<a href="#" class="me-3 text-white">
+									<i class="bi bi-twitter"></i>
+								</a>
+								<a href="#" class="me-3 text-white">
+									<i class="bi bi-instagram"></i>
+								</a>
+								<a href="#" class="me-3 text-white">
+									<i class="bi bi-linkedin"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row mt-5">
+					<div class="col-12">
+						<p class="text-center text-muted small">
+							&copy; CritiQs 2023. All rights reserved.
+						</p>
+					</div>
+				</div>
+			</div>
+		</footer>
 	</body>
 
 	{% block js %} {% endblock%}
