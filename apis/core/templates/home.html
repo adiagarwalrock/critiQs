@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load static %}{% load humanize %} {% block title %}
-- Home {% endblock %} {% block head %} {% endblock %} 
+- Home {% endblock %} {% block head %} {% endblock %}
 
 
 
@@ -8,154 +8,129 @@
 {% block body %}
 
 
-<div
-  id="carouselExampleCaptions"
-  class="carousel slide"
-  data-bs-ride="carousel"
->
-<div class="container">
-  <div class="container-fluid">
-    <div class="carousel-inner">
-    {% for item in carousel %}
-      <div class="carousel-item{% if forloop.first %} active{% endif %}" id="id_{{forloop.counter}}">
-      
-      <img class="img-fluid"
-        src="https://image.tmdb.org/t/p/original{{item.backdrop_path}}"
-        {% comment %} img-fluid.maxwidth:100%;
-        height:auto; {% endcomment %}
-        alt="..."
-         style="max-height: 100%; width: auto;"
-        height="auto" 
-      />
-  
-      
-      <div class="carousel-caption d-none d-md-block">
-        <h5>{{item.title}}</h5>
-        <p>{{item.overview}}</p>
-      </div> 
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+	<div class="carousel-inner">
+		{% for item in carousel %}
+		<div class="carousel-item{% if forloop.first %} active{% endif %}" id="id_{{forloop.counter}}">
 
-  </div>
-    {% endfor %}
-</div>
-  </div>
-</div>
+			<img class="img-fluid" src="https://image.tmdb.org/t/p/original{{item.backdrop_path}}" {% comment %}
+				img-fluid.maxwidth:100%; height:auto; {% endcomment %} alt="..." style="max-height: 100%; width: auto;"
+				height="auto" />
 
 
-<div class="container">
-    <div class="container-fluid">
-        <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+			<div class="carousel-caption d-none d-md-block">
+				<h5>{{item.title}}</h5>
+				<p>{{item.overview}}</p>
+			</div>
 
-          </button>
-      </div>
+		</div>
+		{% endfor %}
+	</div>
+
+
+
+	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+
+	</button>
+
+
+
+
+
+	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
+
+
 </div>
 
-
-
-<div class="container">
-  <div class="container-fluid">
-        <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next"
-            >
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-              </button>
-  
-    </div>  
-</div>        
-      
-
-  
 
 
 
 
 
 <div class="container">
-  <h2 class="display-6">Popular</h2>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 g-4">
-        {% for item in popular_movies %}
-        <div class="col mb-4">
-          <div class="card h-100">
-            <a href="{% url 'movie_details' item.id %}">
-              <div class="position-relative">
-                <img
-                  src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
-                  class="card-img-top"
-                  alt="{{item.title}} original image"
-                />
-                <div class="position-absolute top-0 start-0 m-2">
-                  <span class="badge bg-primary">{{item.original_language}}</span>
-                </div>
-                <div class="position-absolute top-0 end-0 m-2">
-                  <span class="badge bg-secondary">🌟 {{item.vote_average}}</span>
-                </div>
-                <div class="position-absolute bottom-0 start-0 p-2 bg-dark">
-                  <h6 class="text-light fs-6">{{item.title}}</h6>
-                </div>
-                <div class="tooltip-body d-none">
-                  <p class="m-0">
-                    <div>
-                      <div>
-                        <span>🕔 {{item.release_date}}</span>
-                        {%if item.adult%}
-                        <span>
-                          <span class="badge bg-warning text-dark">+18 </span>
-                        </span>
-                        {%endif%}
-                        </div>
-                      <div>{{item.overview}}</div>
-                    
-                  </div>
-                  </p>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
+	<div>
+		<h2 class="display-6">Popular</h2>
+	</div>
+
+	<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 g-4">
+		{% for item in popular_movies %}
+		<div class="col mb-4">
+			<div class="card">
+				<a href="{% url 'movie_details' item.id %}">
+					<div class="position-relative">
+						<img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" class="card-img-top"
+							alt="{{item.title}} original image" />
+						<div class="position-absolute top-0 start-0 m-2">
+							<span class="badge bg-primary">{{item.original_language}}</span>
+						</div>
+						<div class="position-absolute top-0 end-0 m-2">
+							<span class="badge bg-secondary">🌟 {{item.vote_average}}</span>
+						</div>
+						{% comment %}
+						<div class="position-absolute bottom-0 start-0 p-2 bg-dark">
+							<span class="text-light fs-6">{{item.title}}</span>
+						</div>
+						{% endcomment %}
+
+						<div class="tooltip-body d-none">
+							<div>
+								<div>
+									<span>🕔 {{item.release_date}}</span>
+									{%if item.adult%}
+									<span>
+										<span class="badge bg-warning text-dark">+18 </span>
+									</span>
+									{%endif%}
+								</div>
+
+								<div>
+									<p>{{item.overview}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div>
+				<center>
+					<span class="">{{item.title}}</span>
+				</center>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
 </div>
-
-
-
-
 
 
 
 {% endblock %}
 
 
-
-
 {% block js %}
 
 <div>
-<script>
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('.card'))
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl, {
-      title: tooltipTriggerEl.querySelector('.tooltip-body').innerHTML,
-      placement: 'bottom',
-      html: true
-    })
-  })
-</script>
+	<script>
+		var tooltipTriggerList = [].slice.call(document.querySelectorAll('.card'))
+		var tooltipList = tooltipTriggerList.map(
+			function (tooltipTriggerEl) {
+				return new bootstrap.Tooltip(tooltipTriggerEl,
+					{
+						title: tooltipTriggerEl.querySelector('.tooltip-body').innerHTML,
+						placement: 'bottom',
+						html: true
+					}
+				)
+			}
+		)
+
+	</script>
 </div>
 
 
 
-    {% endblock%}
+{% endblock%}
