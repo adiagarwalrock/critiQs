@@ -41,7 +41,8 @@
 		<style>
 			html,
 			body {
-				height: 100%
+				height: 100%;
+				background-image: linear-gradient(109.6deg, rgba(254, 253, 205, 1) 11.2%, rgba(163, 230, 255, 1) 91.1%);
 			}
 
 			.card {
@@ -134,51 +135,57 @@
 			.no_decor {
 				text-decoration: none;
 			}
-		
-				.badge-custom {
-				  display: inline-flex;
-				  align-items: center;
-				  justify-content: center;
-				  background: linear-gradient(to bottom, #3a6186, #89253e);
-				  color: #FF0;
-				  border-radius: 10px;
-				  width: 10px;
-				  height: 10px;
-				  font-size: 20px;
-				  {% comment %} font-weight: bold; {% endcomment %}
-				  text-shadow: 1px 1px 1px red, 0 0 1em blue, 0 0 0.2em blue;
-				  box-shadow: 1px 1px red, 1em  olive;
-				  animation:animation: colorchange 15s ease infinite;
-				}
-				
-				.badge-custom i {
-				  margin-right: 6px;
-				  font-size: 13px;
-				}
-				
-				@keyframes pulse {
-				  0% {
-					transform: scale(1);
-				  }
-				  50% {
-					transform: scale(1.2);
-				  }
-				  100% {
-					transform: scale(1);
-				  }
-				}
-			  @keyframes colorchange {
+
+			.badge-custom {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				background: linear-gradient(to bottom, #3a6186, #89253e);
+				color: #FF0;
+				border-radius: 10px;
+				width: 10px;
+				height: 10px;
+				font-size: 20px;
+				text-shadow: 1px 1px 1px red,
+					0 0 1em blue,
+					0 0 0.2em blue;
+				box-shadow: 1px 1px red,
+					1em olive;
+				animation: colorchange 15s ease infinite;
+			}
+
+			.badge-custom i {
+				margin-right: 6px;
+				font-size: 13px;
+			}
+
+			@keyframes pulse {
 				0% {
-				  background: linear-gradient(to right, #ff5858, #f857a6, #bc45f5, #4a4aff, #1cb5e0, #0ad5b5);
+					transform: scale(1);
 				}
+
 				50% {
-				  background: linear-gradient(to right, #0ad5b5, #1cb5e0, #4a4aff, #bc45f5, #f857a6, #ff5858);
+					transform: scale(1.2);
 				}
+
 				100% {
-				  background: linear-gradient(to right, #ff5858, #f857a6, #bc45f5, #4a4aff, #1cb5e0, #0ad5b5);
+					transform: scale(1);
 				}
-			  }
-			  
+			}
+
+			@keyframes colorchange {
+				0% {
+					background: linear-gradient(to right, #ff5858, #f857a6, #bc45f5, #4a4aff, #1cb5e0, #0ad5b5);
+				}
+
+				50% {
+					background: linear-gradient(to right, #0ad5b5, #1cb5e0, #4a4aff, #bc45f5, #f857a6, #ff5858);
+				}
+
+				100% {
+					background: linear-gradient(to right, #ff5858, #f857a6, #bc45f5, #4a4aff, #1cb5e0, #0ad5b5);
+				}
+			}
 		</style>
 
 		<div class="container">
