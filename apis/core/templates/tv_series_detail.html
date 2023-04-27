@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}{% load humanize %}
+
+
+
+{% block title %} - Movie Detail {% endblock %}
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block body %}
+
+
+<h1>{{series.title}} </h1>
+<img src="https://image.tmdb.org/t/p/original{{series.backdrop_path}}" height="400" width="400">
+
+
+<p>
+    <b>Budget: </b> {{series.budget}}
+    <b>Generes: </b>
+    {% for i in series.genres %}
+    {{i.name}}
+    {% endfor %}
+    <b>Homepage: </b> {{series.homepage}}
+    <b>Languages Available: </b>
+    {% for i in series.spoken_languages %}
+    {{i.english_name}}
+    {% endfor %}
+    <b>Description: </b> {{series.overview}}
+    <b>Date Released: </b> {{series.release_date}}
+    <b>Running time: </b> {{series.runtime}}
+
+</p>
+
+
+
+
+<hr>
+
+
+
+<h2>Cast</h2>
+<div class="carousel-inner">
+    <div class="carousel-item active">
+        <div class="container">
+            <div class="row">
+                {% for cast in credits %}
+                <div class="card" style="width: 12rem;">
+                    {%if cast.profile_path %}
+
+                    <img src="https://image.tmdb.org/t/p/w500{{cast.profile_path}}" class="card-img-top img-thumbnail"
+                        height="200" alt="{{cast.name}} original image">
+                    {%else %}
+                    <img src="https://www.shutterstock.com/image-vector/male-default-placeholder-avatar-profile-260nw-387516193.jpg"
+                        class="card-img-top img-thumbnail" height="200" alt="{{cast.name}} original image">
+                    {%endif%}
+
+                    <p>
+                        <span class="badge bg-primary">{{cast.name}}</span>
+                        <span class="badge bg-success">{{cast.character}}</span>
+                    </p>
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<hr />
+
+<p>
+<h2>Similar</h2>
+<div class="carousel-inner">
+    <div class="carousel-item active">
+        <div class="container">
+            <div class="row">
+                {% for item in similar %}
+
+                <div class="card" style="width: 12rem;">
+                    <img src="https://image.tmdb.org/t/p/w500/{{item.poster_path}}" class="card-img-top img-thumbnail"
+                        height="200" alt="{{item.title}} original image">
+
+                    <p>
+                        <span class="badge bg-primary">⭐ {{item.vote_average}}</span>
+                        {% if item.adult %}
+                        <span class="badge bg-danger">+18</span>
+                        {% endif %}
+                        <span class="badge bg-success">{{item.original_language}}</span>
+                    </p>
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<hr>
+
+<p>
+
+<h2>Comments</h2>
+
+<h3>User Comments</h3>
+
+{% for comment in comments %}
+<p>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{comment.user.username}}</h5>
+        <span class="card-subtitle mb-2 text-muted">{{comment.date_created}}</span>
+        <p class="card-text">{{comment.body}}</p>
+    </div>
+</div>
+</p>
+{% endfor %}
+
+
+{% if user.is_authenticated %}
+<p>
+
+<form method="post">
+    {% csrf_token %}
+    {{form.body.label}}
+    {{form.body}}
+    <button type="submit" class="btn btn-primary">Submit
+    </button>
+</form>
+</p>
+
+{% else %}
+<p>
+    <a href="{% url 'login' %}" class="btn btn-primary">Login to Comment</a>
+
+</p>
+
+{% endif %}
+
+
+{% endblock %}
