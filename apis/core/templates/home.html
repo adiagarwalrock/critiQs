@@ -15,10 +15,10 @@
 		<div class="carousel-item{% if forloop.first %} active{% endif %}" id="id_{{forloop.counter}}">
 
 			<img class="img-fluid" src="https://image.tmdb.org/t/p/original{{item.backdrop_path}}"
-				style="max-height: 100%; width: auto;" height="auto" />
+				style="max-height: 100%; width: auto;" height="auto" alt="{{item.name}}" />
 
 			<div class="carousel-caption d-none d-md-block">
-				<h5>{{item.title}}</h5>
+				<h2>{{item.title}}</h2>
 				<p>{{item.overview}}</p>
 			</div>
 
@@ -59,7 +59,7 @@
 					<a href="{% url 'movie_details' item.id %}">
 						<div class="position-relative">
 							<img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
-								class="card-img-top rounded-3 shadow" alt="{{item.title}} original image"
+								class="card-img-top rounded-3 shadow" alt="{{item.name}} original image"
 								style="height: 300px; object-fit: cover;" />
 							<div class="position-absolute top-0 start-0 m-2">
 								<span class="badge bg-primary">{{item.original_language}}</span>
@@ -171,7 +171,7 @@
 						<div class="position-relative">
 							<img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
 								class="card-img-top rounded-3 shadow" alt="{{item.title}} original image"
-								style="height: 300px; object-fit: cover;" />
+								style="height: 300px; object-fit: cover;"/>
 							<div class="position-absolute top-0 start-0 m-2">
 								<span class="badge bg-primary">{{item.original_language}}</span>
 							</div>
