@@ -13,35 +13,43 @@
 
 {% block body %}
 
-
+<center>
 <h1>{{movie.title}} </h1>
 <img src="https://image.tmdb.org/t/p/original{{movie.backdrop_path}}" height="400" width="400">
 
 
 <p>
-    <b>Budget: </b> {{movie.budget}}
-    <b>Generes: </b>
+    <ul>   <b>Description: </b> {{movie.overview}}</ul>
+
+    {%if movie.budget %}
+    <ul> <b>Budget: </b> {{movie.budget}} </ul>
+    {% endif %}
+    
+    <ul><b>Generes: </b>
     {% for i in movie.genres %}
     {{i.name}}
     {% endfor %}
-    <b>Homepage: </b> {{movie.homepage}}
-    <b>Languages Available: </b>
+    </ul>
+
+<ul><b>Homepage: </b> {{movie.homepage}}</ul>
+<ul><b>Languages Available: </b>
     {% for i in movie.spoken_languages %}
     {{i.english_name}}
-    {% endfor %}
-    <b>Description: </b> {{movie.overview}}
-    <b>Date Released: </b> {{movie.release_date}}
-    <b>Running time: </b> {{movie.runtime}}
+    {% endfor %}</ul>
+   
+        <ul> <b>Date Released: </b> {{movie.release_date}}</ul>
+            <ul> <b>Running time: </b> {{movie.runtime}}</ul>
 
 </p>
 
 
 
 
-<hr>
+<hr/>
 
 
 
+<p>
 <h2>Cast</h2>
 <div class="carousel-inner">
 <div class="carousel-item active">
@@ -69,13 +77,15 @@
 </div>
 </div>
 </div>
+</p>
 
-
+</center>
 
 <hr />
-
+<center>
 <p>
-<h2>Similar</h2>
+<h2>Similar Movies</h2>
+</center>
 <div class="carousel-inner">
 <div class="carousel-item active">
 <div class="container">
@@ -83,7 +93,8 @@
 {% for item in similar %}
 
     <div class="card" style="width: 12rem;">
-        <img src="https://image.tmdb.org/t/p/w500/{{item.poster_path}}" class="card-img-top img-thumbnail" height="200"
+        <a href="{% url 'movie_details' item.id %}">
+                    <img src="https://image.tmdb.org/t/p/w500/{{item.poster_path}}" class="card-img-top img-thumbnail" height="200"
             alt="{{item.title}} original image">
         
             <p>
@@ -93,7 +104,7 @@
                 {% endif %}
                 <span class="badge bg-success">{{item.original_language}}</span>
             </p>
-        
+        </a>
     </div>
 {% endfor %}
 </div>
@@ -102,12 +113,14 @@
 </div>
 
 
-<hr>
+<hr/>   
 
+<center>
 <p>
 
 <h2>Comments</h2>
-
+</center>
+<br>
 <h3>User Comments</h3>
 
 {% for comment in comments %}
@@ -115,7 +128,7 @@
 
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">{{comment.user.username}}</h5>
+        <h4 class="card-title">{{comment.user.username}}</h4>
         <span class="card-subtitle mb-2 text-muted">{{comment.date_created}}</span>
         <p class="card-text">{{comment.body}}</p>
     </div>
