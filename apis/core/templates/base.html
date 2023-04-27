@@ -38,64 +38,99 @@
 	</head>
 
 	<body>
-    <style>
-      .card {
-          transition: all 0.2s ease-in-out;
-          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-          border: none;
-          margin-bottom: 0rem;
-      }
-      
-      .card:hover {
-          box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
-          transform: translateY(-5px);
-      }
-      
-      .card-img-top {
-          object-fit: cover;
-      }
-      
-      .card-title {
-          font-weight: bold;
-          margin-bottom: 0;
-      }
-      
-      .card-text {
-          margin-bottom: 0;
-      }
-      
-      .card-info {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0.8);
-          color: white;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          opacity: 0;
-          transition: opacity 0.2s ease-in-out;
-      }
-      
-      .card:hover .card-info {
-          opacity: 1;
-      }
-      
-      .card-info p {
-          margin-bottom: 0.5rem;
-      }
-      
-      .card-info span {
-          font-weight: bold;
-      }
-      
-      .badge {
-          margin-right: 0.5rem;
-      }
-  </style>
+		<style>
+			html,
+			body {
+				height: 100%
+			}
+
+			.card {
+				transition: all 0.2s ease-in-out;
+				box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+				border: none;
+				margin-bottom: 0rem;
+			}
+
+			.card:hover {
+				box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+				transform: translateY(-5px);
+			}
+
+			.card-img-top {
+				object-fit: cover;
+			}
+
+			.card-title {
+				font-weight: bold;
+				margin-bottom: 0;
+			}
+
+			.card-text {
+				margin-bottom: 0;
+			}
+
+			.card-info {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-color: rgba(0, 0, 0, 0.8);
+				color: white;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				opacity: 0;
+				transition: opacity 0.2s ease-in-out;
+			}
+
+			.card:hover .card-info {
+				opacity: 1;
+			}
+
+			.card-info p {
+				margin-bottom: 0.5rem;
+			}
+
+			.card-info span {
+				font-weight: bold;
+			}
+
+			.badge {
+				margin-right: 0.5rem;
+			}
+
+			.authentication-card {
+				background: linear-gradient(45deg, #2f6ed3 5%, #5095e4 20%, #5095e4 60%, #3476e0 95%);
+				box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+				backdrop-filter: blur(25px);
+				-webkit-backdrop-filter: blur(18px);
+				border-radius: 10px;
+				border: 1px solid rgba(255, 255, 255, 0.18);
+			}
+
+			.trending-card {
+				background: rgb(16, 96, 113);
+				background: linear-gradient(148deg, rgba(16, 96, 113, 0.9867297260701156) 0%, rgba(85, 200, 131, 1) 33%, rgba(0, 103, 79, 1) 83%);
+				box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+				backdrop-filter: blur(18px);
+				-webkit-backdrop-filter: blur(18px);
+				border-radius: 10px;
+				border: 1px solid rgba(255, 255, 255, 0.18);
+			}
+
+			.latest-tv-card {
+				background-color: #0093E9;
+				background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+
+				box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+				backdrop-filter: blur(18px);
+				-webkit-backdrop-filter: blur(18px);
+				border-radius: 10px;
+				border: 1px solid rgba(255, 255, 255, 0.18);
+			}
+		</style>
 
 		<style>
 			.no_decor {
@@ -105,15 +140,15 @@
 
 		<div class="container">
 			<header
-				class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+				class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between pt-3 border-bottom">
 
 				<h1>
-					<a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-decoration-none">
+					<a href="/" class="d-flex align-items-center col-md-3 text-decoration-none">
 						CritiQs
 					</a>
 				</h1>
 
-				<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+				<ul class="nav col-12 col-md-auto justify-content-center">
 					<li><a href="#" class="nav-link px-2">Movies</a></li>
 					<li><a href="#" class="nav-link px-2">TV Shows</a></li>
 					<li class="nav-item dropdown">
@@ -161,7 +196,7 @@
 
 
 
-		<footer class="bg-dark text-white py-4">
+		<footer class="bg-dark text-white mt-2 pt-4 navbar-fixed-bottom">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 mb-4 mb-md-0">
@@ -206,7 +241,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="row mt-5">
+				<div class="row mt-2">
 					<div class="col-12">
 						<p class="text-center text-muted small">
 							&copy; CritiQs 2023. All rights reserved.
@@ -216,6 +251,21 @@
 			</div>
 		</footer>
 	</body>
+
+	<script>
+		var tooltipTriggerList = [].slice.call(document.querySelectorAll('.card'))
+		var tooltipList = tooltipTriggerList.map(
+			function (tooltipTriggerEl) {
+				return new bootstrap.Tooltip(tooltipTriggerEl,
+					{
+						title: tooltipTriggerEl.querySelector('.tooltip-body').innerHTML,
+						placement: 'bottom',
+						html: true
+					}
+				)
+			}
+		)
+	</script>
 
 	{% block js %} {% endblock%}
 

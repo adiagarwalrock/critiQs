@@ -6,9 +6,12 @@ from .forms import (
 )
 
 from django.conf import settings
-# from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, CreateView
+from django.views.generic import (
+    TemplateView,
+    ListView,
+    CreateView
+)
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -20,98 +23,121 @@ User = get_user_model()
 API_KEY = settings.MOVIE_API_KEY
 
 
-class Home(TemplateView):
+def request_data(url):
+    try:
+        try:
+            response = requests.get(url,
+                                    timeout=5,
+                                    headers={'Content-Type': 'application/json'})
+        except requests.Timeout:
+            response = None
+        if not response or response.status_code != 200:
+            response = requests.get(url,
+                                    timeout=5,
+                                    headers={'Content-Type': 'application/json'})
+            if response.status_code != 200:
+                return None
+    except (ConnectionError, requests.Timeout):
+        return None
 
-    context_object_name = "popular_movies"
+    results = response.json()
+
+    return results
+
+
+def get_movie_cast(movie_id: int):
+    url = "https://api.themoviedb.org/3/movie/"+movie_id + \
+        "/credits?api_key="+API_KEY+"&language=en-US"
+    return request_data(url)['cast']
+
+
+def get_similar_movie(movie_id: int):
+    url = "https://api.themoviedb.org/3/movie/"+movie_id + \
+        "/similar?api_key="+API_KEY+"&language=en-US&page=1"
+    return request_data(url)['results']
+
+
+def get_popular():
+    url = "https://api.themoviedb.org/3/movie/popular?api_key="+API_KEY + \
+        "&language=en-US&page=1&append_to_response=videos"
+    return request_data(url)['results']
+
+
+def get_top_rated():
+    url = "https://api.themoviedb.org/3/movie/top_rated?api_key="+API_KEY + \
+        "&language=en-US&page=1&append_to_response=videos"
+    return request_data(url)['results']
+
+
+def get_upcoming():
+    url = "https://api.themoviedb.org/3/movie/upcoming?api_key="+API_KEY + \
+        "&language=en-US&page=1&append_to_response=videos"
+    return request_data(url)['results']
+
+
+def get_trending():
+    url = "https://api.themoviedb.org/3/trending/movie/day?api_key="+API_KEY
+    return request_data(url)['results']
+
+
+def get_latest_tv_series(page=1):
+    url = "https://api.themoviedb.org/3/tv/on_the_air?api_key=" + \
+        API_KEY+"&language=en-US&page="+str(page)
+    results = request_data(url)['results']
+    return results
+
+
+def get_movie_detail(movie_id: str):
+    url = "https://api.themoviedb.org/3/movie/"+str(movie_id) + \
+        "?api_key="+API_KEY+"&language=en-US"
+    return request_data(url)
+
+
+def get_tv_series_detail(tv_id: str):
+    url = "https://api.themoviedb.org/3/tv/"+str(tv_id) + \
+        "?api_key="+API_KEY+"&language=en-US"
+    return request_data(url)
+
+
+def get_tv_series_cast(tv_id):
+    url = "https://api.themoviedb.org/3/tv/"+str(tv_id) + \
+        "/credits?api_key="+API_KEY+"&language=en-US"
+    return request_data(url)['cast']
+
+
+def get_tv_series_similar(tv_id):
+    url = "https://api.themoviedb.org/3/tv/"+str(tv_id) + \
+        "/similar?api_key="+API_KEY+"&language=en-US&page=1"
+    return request_data(url)['results']
+
+
+class Home(TemplateView):
     template_name = 'home.html'
 
     def get_context_data(self, *args, **kwargs):
-        pages = [1, 2]
-        result = []
-        for i in pages:
-            url = "https://api.themoviedb.org/3/movie/popular?api_key="+API_KEY + \
-                "&language=en-US&page="+str(i)+"&append_to_response=videos"
-            try:
-                try:
-                    response = requests.get(url,
-                                            timeout=5,
-                                            headers={'Content-Type': 'application/json'})
-                except requests.Timeout:
-                    response = None
-                if not response or response.status_code != 200:
-                    response = requests.get(url,
-                                            timeout=5,
-                                            headers={'Content-Type': 'application/json'})
-                    if response.status_code != 200:
-                        return None
-            except (ConnectionError, requests.Timeout):
-                return None
 
-            result += response.json()['results'][:len(response.json()
-                                                      ['results'])-1]
+        popular_movies = get_popular()
+        kwargs['carousel'] = popular_movies[:5]
+        kwargs['popular_movies'] = popular_movies[5:17]
 
-        kwargs['carousel'] = result[:5]
+        upcoming_movies = get_upcoming()
+        kwargs['upcoming'] = upcoming_movies[:12]
+
+        top_rated_movies = get_top_rated()
+        kwargs['top_rated'] = top_rated_movies[:12]
+
+        latest_tv_series = get_latest_tv_series()
+        kwargs['latest_tv_series'] = latest_tv_series[:12]
+
         kwargs['genres'] = settings.GENERES
-        kwargs['popular_movies'] = result[5:]
         return super().get_context_data(**kwargs)
 
 
-def get_cast(movie_id: int):
-    url = "https://api.themoviedb.org/3/movie/"+movie_id + \
-        "/credits?api_key="+API_KEY+"&language=en-US"
-    response = requests.get(url,
-                            timeout=5,
-                            headers={'Content-Type': 'application/json'})
-
-    return response.json()['cast']
-
-
-def get_similar(movie_id: int):
-    url = "https://api.themoviedb.org/3/movie/"+movie_id + \
-        "/similar?api_key="+API_KEY+"&language=en-US&page=1"
-    response = requests.get(url,
-                            timeout=5,
-                            headers={'Content-Type': 'application/json'})
-
-    return response.json()['results']
-
-
-class MovieDetailView(CreateView):
+class ContentDetailView(CreateView):
     model = Comment
-    template_name = 'movie_detail.html'
     form_class = CommentForm
 
-    def get_context_data(self, *args, **kwargs):
-        movie_id = str(self.kwargs['movie_id'])
-        comments = Comment.objects.filter(content_id=movie_id)
-        url = "https://api.themoviedb.org/3/movie/"+movie_id + \
-            "?api_key="+API_KEY+"&language=en-US"
-        try:
-            try:
-                response = requests.get(url,
-                                        timeout=5,
-                                        headers={'Content-Type': 'application/json'})
-            except requests.Timeout:
-                response = None
-            if not response or response.status_code != 200:
-                response = requests.get(url,
-                                        timeout=5,
-                                        headers={'Content-Type': 'application/json'})
-                if response.status_code != 200:
-                    return None
-        except (ConnectionError, requests.Timeout):
-            return None
-
-        kwargs['movie'] = response.json()
-        kwargs['genres'] = settings.GENERES
-        kwargs['credits'] = get_cast(movie_id)
-        kwargs['similar'] = get_similar(movie_id)
-        kwargs['comments'] = comments
-
-        return super().get_context_data(**kwargs)
-
     def post(self, request, **kwargs):
-        # method to post a movie comment to the database
         if request.method == 'POST':
             request.POST._mutable = True
             movie_id = self.kwargs['movie_id']
@@ -120,18 +146,62 @@ class MovieDetailView(CreateView):
             request.POST['content_id'] = movie_id
             request.POST['user'] = self.request.user
             request.POST._mutable = False
-            print(request.POST)
             form = CommentForm()
-            print(form)
             if form.is_valid():
                 form.save()
             else:
                 print(form.errors)
 
-        return super(MovieDetailView, self).post(request, **kwargs)
+        return super(ContentDetailView, self).post(request, **kwargs)
+
+
+class MovieDetailView(ContentDetailView):
+    template_name = 'movie_detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        movie_id = str(self.kwargs['movie_id'])
+        kwargs['movie'] = get_movie_detail(movie_id)
+
+        comments = Comment.objects.filter(content_id=movie_id)
+        kwargs['comments'] = comments
+
+        kwargs['genres'] = settings.GENERES
+        kwargs['credits'] = get_movie_cast(movie_id)
+        kwargs['similar'] = get_similar_movie(movie_id)
+
+        return super().get_context_data(**kwargs)
+
+
+class TvSeriesDetailView(ContentDetailView):
+    template_name = 'tv_series_detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        series_id = str(self.kwargs['series_id'])
+        kwargs['series'] = get_tv_series_detail(series_id)
+
+        comments = Comment.objects.filter(content_id=series_id)
+        kwargs['comments'] = comments
+
+        kwargs['genres'] = settings.GENERES
+        kwargs['credits'] = get_tv_series_cast(series_id)
+        kwargs['similar'] = get_tv_series_similar(series_id)
+
+        return super().get_context_data(**kwargs)
 
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("home")
     template_name = "registration/signup.html"
+
+    def get_context_data(self, *args, **kwargs):
+        kwargs['genres'] = settings.GENERES
+        return super().get_context_data(**kwargs)
+
+
+class GenresContentView(TemplateView):
+    template_name = "results.html"
+
+    def get_context_data(self, *args, **kwargs):
+        kwargs['genres'] = settings.GENERES
+        return super().get_context_data(**kwargs)

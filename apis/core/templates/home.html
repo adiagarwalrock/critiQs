@@ -8,15 +8,14 @@
 {% block body %}
 
 
+
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 	<div class="carousel-inner">
 		{% for item in carousel %}
 		<div class="carousel-item{% if forloop.first %} active{% endif %}" id="id_{{forloop.counter}}">
 
-			<img class="img-fluid" src="https://image.tmdb.org/t/p/original{{item.backdrop_path}}" {% comment %}
-				img-fluid.maxwidth:100%; height:auto; {% endcomment %} alt="..." style="max-height: 100%; width: auto;"
-				height="auto" />
-
+			<img class="img-fluid" src="https://image.tmdb.org/t/p/original{{item.backdrop_path}}"
+				style="max-height: 100%; width: auto;" height="auto" />
 
 			<div class="carousel-caption d-none d-md-block">
 				<h5>{{item.title}}</h5>
@@ -27,104 +26,248 @@
 		{% endfor %}
 	</div>
 
-
-
 	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
 		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 		<span class="visually-hidden">Previous</span>
 
 	</button>
 
-
-
-
-
 	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
 		<span class="carousel-control-next-icon" aria-hidden="true"></span>
 		<span class="visually-hidden">Next</span>
 	</button>
 
-
 </div>
 
 
 
+<div class="container mb-3">
+
+	<section class="my-1">
+
+		<div class="row">
+			<div class="col-12">
+				<h2 class="display-4 mb-2">Popular Movies</h2>
+			</div>
+		</div>
+
+		<div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center">
+			{% for item in popular_movies %}
+			<div class="col mb-2">
+				<!-- Movie Card -->
+				<div class="card h-100 border-0">
+					<a href="{% url 'movie_details' item.id %}">
+						<div class="position-relative">
+							<img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
+								class="card-img-top rounded-3 shadow" alt="{{item.title}} original image"
+								style="height: 300px; object-fit: cover;" />
+							<div class="position-absolute top-0 start-0 m-2">
+								<span class="badge bg-primary">{{item.original_language}}</span>
+							</div>
+							<div class="position-absolute top-0 end-0 m-2">
+								<span class="badge bg-secondary rounded-pill">🌟 {{item.vote_average}}</span>
+							</div>
+							<div class="tooltip-body d-none">
+								<div>
+									<div>
+										<div class="">{{item.title}}</div>
+										<div>
+											<span class="badge bg-secondary rounded-pill">🕔
+												{{item.release_date}}</span>
+											{%if item.adult%}
+											<span class="badge bg-warning text-dark rounded-pill">+18 </span>
+											{%endif%}
+										</div>
+									</div>
+
+									<div class="mt-2">
+										<p class="text-light">{{item.overview|truncatewords:20}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<!-- Movie Card -->
+
+			</div>
+			{% endfor %}
+		</div>
+
+	</section>
 
 
 
+	<section class="my-3 trending-card">
+
+		<div class="px-4 pt-4 pb-2">
+			<div class="col-12">
+				<h2 class="display-6 fw-bolder text-light mb-2">Upcoming</h2>
+			</div>
+		</div>
+		<div class="px-4 pb-4">
+
+			<div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center">
+				{% for item in upcoming %}
+				<div class="col mb-2">
+					<!-- Movie Card -->
+					<div class="card h-100 border-0">
+						<a href="{% url 'movie_details' item.id %}">
+							<div class="position-relative">
+								<img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
+									class="card-img-top rounded-3 shadow" alt="{{item.title}} original image"
+									style="height: 300px; object-fit: cover;" />
+								<div class="position-absolute top-0 start-0 m-2">
+									<span class="badge bg-primary">{{item.original_language}}</span>
+								</div>
+								<div class="position-absolute top-0 end-0 m-2">
+									<span class="badge bg-secondary rounded-pill">🌟 {{item.vote_average}}</span>
+								</div>
+								<div class="tooltip-body d-none">
+									<div>
+										<div>
+											<div class="">{{item.title}}</div>
+											<div>
+												<span class="badge bg-secondary rounded-pill">🕔
+													{{item.release_date}}</span>
+												{%if item.adult%}
+												<span class="badge bg-warning text-dark rounded-pill">+18 </span>
+												{%endif%}
+											</div>
+										</div>
+										<div class="mt-2">
+											<p class="text-light">{{item.overview|truncatewords:20}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<!-- Movie Card -->
+
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+
+	</section>
 
 
-	<div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h2 class="text-center display-4 mb-5">Popular Movies</h2>
-      </div>
-    </div>
-  
-    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center">
-      {% for item in popular_movies %}
-      <div class="col mb-2">
-        <div class="card h-100 border-0">
-          <a href="{% url 'movie_details' item.id %}">
-            <div class="position-relative">
-              <img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" class="card-img-top rounded-3 shadow"
-                alt="{{item.title}} original image" style="height: 300px; object-fit: cover;" />
-              <div class="position-absolute top-0 start-0 m-2">
-                <span class="badge bg-primary">{{item.original_language}}</span>
-              </div>
-              <div class="position-absolute top-0 end-0 m-2">
-                <span class="badge bg-secondary rounded-pill">🌟 {{item.vote_average}}</span>
-              </div>
-              <div class="tooltip-body d-none">
-                <div>
-                  <div>
-                    <div class="">{{item.title}}</div>
-                    <div>
-                    <span class="badge bg-secondary rounded-pill">🕔 {{item.release_date}}</span>
-                    {%if item.adult%}
-                      <span class="badge bg-warning text-dark rounded-pill">+18 </span>
-                      {%endif%}
-                    </div>
-                  </div>
-    
-                  <div class="mt-2">
-                    <p class="text-light">{{item.overview|truncatewords:20}}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        {% comment %} <div class="mt-2">
-          <h6 class="text-center mb-0">{{item.title}}</h6>
-        </div> {% endcomment %}
-      </div>
-      {% endfor %}
-    </div>    
-</div>  
+
+	<section class="my-1">
+
+		<div class="row">
+			<div class="col-12">
+				<h2 class="display-4 mb-2">Top rated</h2>
+			</div>
+		</div>
+
+		<div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center">
+			{% for item in top_rated %}
+			<div class="col mb-2">
+				<!-- Movie Card -->
+				<div class="card h-100 border-0">
+					<a href="{% url 'movie_details' item.id %}">
+						<div class="position-relative">
+							<img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
+								class="card-img-top rounded-3 shadow" alt="{{item.title}} original image"
+								style="height: 300px; object-fit: cover;" />
+							<div class="position-absolute top-0 start-0 m-2">
+								<span class="badge bg-primary">{{item.original_language}}</span>
+							</div>
+							<div class="position-absolute top-0 end-0 m-2">
+								<span class="badge bg-secondary rounded-pill">🌟 {{item.vote_average}}</span>
+							</div>
+							<div class="tooltip-body d-none">
+								<div>
+									<div>
+										<div class="">{{item.title}}</div>
+										<div>
+											<span class="badge bg-secondary rounded-pill">🕔
+												{{item.release_date}}</span>
+											{%if item.adult%}
+											<span class="badge bg-warning text-dark rounded-pill">+18 </span>
+											{%endif%}
+										</div>
+									</div>
+
+									<div class="mt-2">
+										<p class="text-light">{{item.overview|truncatewords:20}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<!-- Movie Card -->
+
+			</div>
+			{% endfor %}
+		</div>
+	</section>
+
+	<section class="my-3 latest-tv-card">
+
+		<div class="px-4 pt-4 pb-2">
+			<div class="col-12">
+				<h2 class="display-6 fw-bolder text-light mb-2">Latest TV Series</h2>
+			</div>
+		</div>
+		<div class="px-4 pb-4">
+
+			<div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center">
+				{% for item in latest_tv_series %}
+				<div class="col mb-2">
+					<!-- Movie Card -->
+					<div class="card h-100 border-0">
+						<a href="{% url 'series_details' item.id %}">
+							<div class="position-relative">
+								<img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
+									class="card-img-top rounded-3 shadow" alt="{{item.name}} original image"
+									style="height: 300px; object-fit: cover;" />
+								<div class="position-absolute top-0 start-0 m-2">
+									<span class="badge bg-primary">{{item.original_language}}</span>
+								</div>
+								<div class="position-absolute top-0 end-0 m-2">
+									<span class="badge bg-secondary rounded-pill">🌟 {{item.vote_average}}</span>
+								</div>
+								<div class="tooltip-body d-none">
+									<div>
+										<div>
+											<div class="">{{item.name}}</div>
+											<div>
+												<span class="badge bg-secondary rounded-pill">🕔
+													{{item.release_date}}</span>
+												{%if item.adult%}
+												<span class="badge bg-warning text-dark rounded-pill">+18 </span>
+												{%endif%}
+											</div>
+										</div>
+										<div class="mt-2">
+											<p class="text-light">{{item.overview|truncatewords:20}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<!-- Movie Card -->
+
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+
+	</section>
+
+
+</div>
 
 
 {% endblock %}
 
 
 {% block js %}
-
-	<script>
-		var tooltipTriggerList = [].slice.call(document.querySelectorAll('.card'))
-		var tooltipList = tooltipTriggerList.map(
-			function (tooltipTriggerEl) {
-				return new bootstrap.Tooltip(tooltipTriggerEl,
-					{
-						title: tooltipTriggerEl.querySelector('.tooltip-body').innerHTML,
-						placement: 'bottom',
-						html: true
-					}
-				)
-			}
-		)
-
-	</script>
-
 
 
 {% endblock%}
