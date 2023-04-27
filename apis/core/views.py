@@ -111,6 +111,18 @@ def get_tv_series_similar(tv_id):
     return request_data(url)['results']
 
 
+def get_movie_with_genre(genre_id):
+    url = "https://api.themoviedb.org/3/discover/movie?api_key=" + \
+        API_KEY + "&with_genres=" + str(genre_id)
+    return request_data(url)['results']
+
+
+def get_show_with_genre(genre_id):
+    url = "https://api.themoviedb.org/3/discover/tv?api_key=" + \
+        API_KEY + "&with_genres=" + str(genre_id)
+    return request_data(url)['results']
+
+
 class Home(TemplateView):
     template_name = 'home.html'
 
@@ -200,8 +212,10 @@ class SignUpView(CreateView):
 
 
 class GenresContentView(TemplateView):
-    template_name = "results.html"
+    template_name = "movie_results.html"
 
     def get_context_data(self, *args, **kwargs):
+        content_id = str(self.kwargs['genre_id'])
+        kwargs["content"] = get_movie_with_genre(content_id)
         kwargs['genres'] = settings.GENERES
         return super().get_context_data(**kwargs)

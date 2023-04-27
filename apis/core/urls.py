@@ -7,6 +7,7 @@ from core.views import (
     MovieDetailView,
     SignUpView,
     TvSeriesDetailView,
+    GenresContentView,
 )
 
 urlpatterns = [
@@ -16,6 +17,9 @@ urlpatterns = [
 
     path("series-detail/<int:series_id>",
          TvSeriesDetailView.as_view(), name="series_details"),
+
+    path("genre/<int:genre_id>/<str:genre_name>/",
+         GenresContentView.as_view(), name="genre_content"),
 
     path("signup/", SignUpView.as_view(), name="signup"),
 ]

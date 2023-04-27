@@ -41,8 +41,8 @@
 		<style>
 			html,
 			body {
-				height: 100%;
-				background-image: linear-gradient(109.6deg, rgba(254, 253, 205, 1) 11.2%, rgba(163, 230, 255, 1) 91.1%);
+				/* height: 100%; */
+				background-image: linear-gradient(50deg, rgba(254, 253, 205, 1) 11.2%, rgba(163, 230, 255, 1) 91.1%);
 			}
 
 			.card {
@@ -209,7 +209,8 @@
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							{% for item in genres %}
 
-							<li><a class="dropdown-item" href="#">{{item.name}}</a></li>
+							<li><a class="dropdown-item"
+									href="{% url 'genre_content' item.id item.name %}">{{item.name}}</a></li>
 							{% endfor %}
 						</ul>
 					</li>

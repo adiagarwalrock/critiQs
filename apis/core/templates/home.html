@@ -63,30 +63,40 @@
 								style="height: 300px; object-fit: cover;" />
 							<div class="position-absolute top-0 end-0 m-2">
 								<span class="badge badge-custom">
-                  <i class="bi bi-star-fill"></i>
-                  {{ item.vote_average }}
-                </span>
+									<i class="bi bi-star-fill"></i>
+									{{ item.vote_average }}
+								</span>
 							</div>
 							<div class="tooltip-body d-none">
 								<div>
 									<div>
-										<div class=""><h6>Movie Name : {{item.title}}</h6></div>
+										<div class="">
+											<h6>Movie Name : {{item.title}}</h6>
+										</div>
 										<div>
-											<span class=""><h6>Release Date : 🕔
-												{{item.release_date}}</h6></span>
+											<span class="">
+												<h6>Release Date : 🕔
+													{{item.release_date}}
+												</h6>
+											</span>
 											{%if item.adult%}
 											<span class="badge bg-warning text-dark rounded-pill">+18 </span>
 											{%endif%}
 										</div>
-                    <div class=""><h6> Average Rating: {{item.vote_average}}</h6>
-                    </div>
-                    <div class=""><h6> Genere: {{movie.genres}}{{.name}}</h6>
-                    </div>
-                    <div class=""><h6> Duration : {{movie.runtime}}</h6>
-                    </div>
+										<div class="">
+											<h6> Average Rating: {{item.vote_average}}</h6>
+										</div>
+										<div class="">
+											<h6> Genere: {{movie.genres}}{{.name}}</h6>
+										</div>
+										<div class="">
+											<h6> Duration : {{movie.runtime}}</h6>
+										</div>
 									</div>
 									<div class="">
-										<p class="text-light"></h6>overview : {{item.overview|truncatewords:20}}</></p>
+										<p class="text-light">
+											</h6>overview : {{item.overview|truncatewords:20}}</>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -122,10 +132,10 @@
 									class="card-img-top rounded-3 shadow" alt="{{item.title}} original image"
 									style="height: 300px; object-fit: cover;" />
 								<div class="position-absolute top-0 end-0 m-2">
-                    <span class="badge badge-custom">
-                      <i class="bi bi-star-fill"></i>
-                      {{ item.vote_average }}
-                    </span>
+									<span class="badge badge-custom">
+										<i class="bi bi-star-fill"></i>
+										{{ item.vote_average }}
+									</span>
 								</div>
 								<div class="tooltip-body d-none">
 									<div>
@@ -177,10 +187,10 @@
 								class="card-img-top rounded-3 shadow" alt="{{item.title}} original image"
 								style="height: 300px; object-fit: cover;" />
 							<div class="position-absolute top-0 end-0 m-2">
-                  <span class="badge badge-custom">
-                    <i class="bi bi-star-fill"></i>
-                    {{ item.vote_average }}
-                  </span>
+								<span class="badge badge-custom">
+									<i class="bi bi-star-fill"></i>
+									{{ item.vote_average }}
+								</span>
 							</div>
 							<div class="tooltip-body d-none">
 								<div>
@@ -231,9 +241,9 @@
 									style="height: 300px; object-fit: cover;" />
 								<div class="position-absolute top-0 end-0 m-2">
 									<span class="badge badge-custom">
-                    <i class="bi bi-star-fill"></i>
-                    {{ item.vote_average }}
-                  </span>
+										<i class="bi bi-star-fill"></i>
+										{{ item.vote_average }}
+									</span>
 								</div>
 								<div class="tooltip-body d-none">
 									<div>
