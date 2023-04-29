@@ -88,9 +88,10 @@
 										</div>
 										<div class="">
 											<h6> Genres: {% for i in item.genres %}
-                        {{i.name}}
-                        {% endfor %}</h6>
-                      
+												{{i.name}}
+												{% endfor %}
+											</h6>
+
 										</div>
 										<div class="">
 											<h6> Duration : {{item.runtime}}</h6>
@@ -141,39 +142,40 @@
 									</span>
 								</div>
 								<div class="tooltip-body d-none">
-                  <div>
-                    <div>
-                      <div class="">
-                        <h6>Movie Name : {{item.title}}</h6>
-                      </div>
-                      <div>
-                        <span class="">
-                          <h6>Release Date : 🕔
-                            {{item.release_date}}
-                          </h6>
-                        </span>
-                        {%if item.adult%}
-                        <span class="badge bg-warning text-dark rounded-pill">+18 </span>
-                        {%endif%}
-                      </div>
-                      <div class="">
-                        <h6> Average Rating: {{item.vote_average}}</h6>
-                      </div>
-                      <div class="">
-                        <h6> Genres: {% for i in item.genres %}
-                          {{i.name}}
-                          {% endfor %}</h6>
-                        
-                      </div>
-                      <div class="">
-                        <h6> Duration : {{item.runtime}}</h6>
-                      </div>
-                    </div>
-                    <div class="">
-                      <p class="text-light">
-                        </h6>Overview : {{item.overview|truncatewords:20}}</>
-                      </p>
-                    </div>
+									<div>
+										<div>
+											<div class="">
+												<h6>Movie Name : {{item.title}}</h6>
+											</div>
+											<div>
+												<span class="">
+													<h6>Release Date : 🕔
+														{{item.release_date}}
+													</h6>
+												</span>
+												{%if item.adult%}
+												<span class="badge bg-warning text-dark rounded-pill">+18 </span>
+												{%endif%}
+											</div>
+											<div class="">
+												<h6> Average Rating: {{item.vote_average}}</h6>
+											</div>
+											<div class="">
+												<h6> Genres: {% for i in item.genres %}
+													{{i.name}}
+													{% endfor %}
+												</h6>
+
+											</div>
+											<div class="">
+												<h6> Duration : {{item.runtime}}</h6>
+											</div>
+										</div>
+										<div class="">
+											<p class="text-light">
+												</h6>Overview : {{item.overview|truncatewords:20}}</>
+											</p>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -215,41 +217,42 @@
 								</span>
 							</div>
 							<div class="tooltip-body d-none">
-                <div>
-                  <div>
-                    <div class="">
-                      <h6>Movie Name : {{item.title}}</h6>
-                    </div>
-                    <div>
-                      <span class="">
-                        <h6>Release Date : 🕔
-                          {{item.release_date}}
-                        </h6>
-                      </span>
-                      {%if item.adult%}
-                      <span class="badge bg-warning text-dark rounded-pill">+18 </span>
-                      {%endif%}
-                    </div>
-                    <div class="">
-                      <h6> Average Rating: {{item.vote_average}}</h6>
-                    </div>
-                    <div class="">
-                      <h6> Genres: {% for i in item.genres %}
-                        {{i.name}}
-                        {% endfor %}</h6>
-                      
-                    </div>
-                    <div class="">
-                      <h6> Duration : {{item.runtime}}</h6>
-                    </div>
-                  </div>
-                  <div class="">
-                    <p class="text-light">
-                      </h6>Overview : {{item.overview|truncatewords:20}}</>
-                    </p>
-                  </div>
-                </div>
-              </div>
+								<div>
+									<div>
+										<div class="">
+											<h6>Movie Name : {{item.title}}</h6>
+										</div>
+										<div>
+											<span class="">
+												<h6>Release Date : 🕔
+													{{item.release_date}}
+												</h6>
+											</span>
+											{%if item.adult%}
+											<span class="badge bg-warning text-dark rounded-pill">+18 </span>
+											{%endif%}
+										</div>
+										<div class="">
+											<h6> Average Rating: {{item.vote_average}}</h6>
+										</div>
+										<div class="">
+											<h6> Genres: {% for i in item.genres %}
+												{{i.name}}
+												{% endfor %}
+											</h6>
+
+										</div>
+										<div class="">
+											<h6> Duration : {{item.runtime}}</h6>
+										</div>
+									</div>
+									<div class="">
+										<p class="text-light">
+											</h6>Overview : {{item.overview|truncatewords:20}}</>
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 					</a>
 				</div>
@@ -286,39 +289,40 @@
 									</span>
 								</div>
 								<div class="tooltip-body d-none">
-                  <div>
-                    <div>
-                      <div class="">
-                        <h6>Name : {{item.title}}</h6>
-                      </div>
-                      <div>
-                        <span class="">
-                          <h6>Release Date : 🕔
-                            {{item.first_air_date}}
-                          </h6>
-                        </span>
-                        {%if item.adult%}
-                        <span class="badge bg-warning text-dark rounded-pill">+18 </span>
-                        {%endif%}
-                      </div>
-                      <div class="">
-                        <h6> Average Rating: {{item.vote_average}}</h6>
-                      </div>
-                      <div class="">
-                        <h6> Genres: {% for i in item.genres %}
-                          {{i.name}}
-                          {% endfor %}</h6>
-                        
-                      </div>
-                      <div class="">
-                        <h6> Duration : {{item.runtime}}</h6>
-                      </div>
-                    </div>
-                    <div class="">
-                      <p class="text-light">
-                        </h6>Overview : {{item.overview|truncatewords:20}}</>
-                      </p>
-                    </div>
+									<div>
+										<div>
+											<div class="">
+												<h6>Name : {{item.title}}</h6>
+											</div>
+											<div>
+												<span class="">
+													<h6>Release Date : 🕔
+														{{item.first_air_date}}
+													</h6>
+												</span>
+												{%if item.adult%}
+												<span class="badge bg-warning text-dark rounded-pill">+18 </span>
+												{%endif%}
+											</div>
+											<div class="">
+												<h6> Average Rating: {{item.vote_average}}</h6>
+											</div>
+											<div class="">
+												<h6> Genres: {% for i in item.genres %}
+													{{i.name}}
+													{% endfor %}
+												</h6>
+
+											</div>
+											<div class="">
+												<h6> Duration : {{item.runtime}}</h6>
+											</div>
+										</div>
+										<div class="">
+											<p class="text-light">
+												</h6>Overview : {{item.overview|truncatewords:20}}</>
+											</p>
+										</div>
 									</div>
 								</div>
 							</div>

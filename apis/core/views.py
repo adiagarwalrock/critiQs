@@ -1,3 +1,4 @@
+import random
 import requests
 from api.models import Comment
 from .forms import (
@@ -123,6 +124,18 @@ def get_show_with_genre(genre_id):
     return request_data(url)['results']
 
 
+def get_popular_tv_series():
+    url = "https://api.themoviedb.org/3/tv/popular?api_key=" + \
+        API_KEY + "&&language=en-US&page=1"
+    return request_data(url)['results']
+
+
+def get_top_rated_tv_series():
+    url = "https://api.themoviedb.org/3/tv/top_rated?api_key=" + \
+        API_KEY + "&language=en-US"
+    return request_data(url)['results']
+
+
 class Home(TemplateView):
     template_name = 'home.html'
 
@@ -179,7 +192,7 @@ class MovieDetailView(ContentDetailView):
 
         kwargs['genres'] = settings.GENERES
         kwargs['credits'] = get_movie_cast(movie_id)
-        kwargs['similar'] = get_similar_movie(movie_id)
+        kwargs['similar'] = get_similar_movie(movie_id)[:18]
 
         return super().get_context_data(**kwargs)
 
@@ -188,7 +201,7 @@ class TvSeriesDetailView(ContentDetailView):
     template_name = 'tv_series_detail.html'
 
     def get_context_data(self, *args, **kwargs):
-        series_id = str(self.kwargs['series_id'])
+        series_id = str(self.kwargs['movie_id'])
         kwargs['series'] = get_tv_series_detail(series_id)
 
         comments = Comment.objects.filter(content_id=series_id)
@@ -217,5 +230,42 @@ class GenresContentView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         content_id = str(self.kwargs['genre_id'])
         kwargs["content"] = get_movie_with_genre(content_id)
+        kwargs["title"] = self.kwargs['genre_name']
         kwargs['genres'] = settings.GENERES
+        return super().get_context_data(**kwargs)
+
+
+class AllMovieView(TemplateView):
+    template_name = "movie_results.html"
+
+    def get_context_data(self, **kwargs):
+
+        popular = get_popular()
+        trending = get_trending()
+        upcoming = get_upcoming()
+
+        movie_list = popular + trending + upcoming
+        # print(movie_list)
+        # content = random.shuffle(movie_list)
+
+        kwargs['content'] = movie_list
+        kwargs['genres'] = settings.GENERES
+
+        return super().get_context_data(**kwargs)
+
+
+class AllSeriesView(TemplateView):
+    template_name = "tv_results.html"
+
+    def get_context_data(self, **kwargs):
+
+        latest = get_latest_tv_series()
+        top_rated = get_top_rated_tv_series()
+        popular = get_popular_tv_series()
+
+        content = latest + top_rated + popular
+
+        kwargs['content'] = content
+        kwargs['genres'] = settings.GENERES
+
         return super().get_context_data(**kwargs)
