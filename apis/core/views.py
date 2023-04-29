@@ -209,7 +209,7 @@ class TvSeriesDetailView(ContentDetailView):
 
         kwargs['genres'] = settings.GENERES
         kwargs['credits'] = get_tv_series_cast(series_id)
-        kwargs['similar'] = get_tv_series_similar(series_id)
+        kwargs['similar'] = get_tv_series_similar(series_id)[:18]
 
         return super().get_context_data(**kwargs)
 

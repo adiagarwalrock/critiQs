@@ -7,8 +7,6 @@
 
 {% block body %}
 
-
-
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 	<div class="carousel-inner">
 		{% for item in carousel %}
@@ -17,9 +15,13 @@
 			<img class="img-fluid" src="https://image.tmdb.org/t/p/original{{item.backdrop_path}}"
 				style="max-height: 100%; width: auto;" height="auto" alt="{{item.name}}" />
 
+
 			<div class="carousel-caption d-none d-md-block">
-				<h2>{{item.title}}</h2>
-				<p>{{item.overview}}</p>
+				<div class="home-carousel-details px-2 py-1">
+
+					<h2>{{item.title}}</h2>
+					<p>{{item.overview}}</p>
+				</div>
 			</div>
 
 		</div>
@@ -41,7 +43,7 @@
 
 
 
-<div class="container mb-3">
+<div class="container mt-2 mb-3">
 
 	<section class="my-1">
 
@@ -272,7 +274,7 @@
 		</div>
 		<div class="px-4 pb-4">
 
-			<div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center">
+			<div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4">
 				{% for item in latest_tv_series %}
 				<div class="col mb-2">
 					<!-- Movie Card -->
@@ -292,7 +294,7 @@
 									<div>
 										<div>
 											<div class="">
-												<h6>Name : {{item.title}}</h6>
+												<h6>Name : {{item.name}}</h6>
 											</div>
 											<div>
 												<span class="">
@@ -307,16 +309,20 @@
 											<div class="">
 												<h6> Average Rating: {{item.vote_average}}</h6>
 											</div>
+											{% if item.genres %}
 											<div class="">
 												<h6> Genres: {% for i in item.genres %}
 													{{i.name}}
 													{% endfor %}
 												</h6>
+											</div>
+											{% endif %}
 
-											</div>
+											{% if item.number_of_seasons %}
 											<div class="">
-												<h6> Duration : {{item.runtime}}</h6>
+												<h6> Seasons : {{item.number_of_seasons}}</h6>
 											</div>
+											{% endif %}
 										</div>
 										<div class="">
 											<p class="text-light">
