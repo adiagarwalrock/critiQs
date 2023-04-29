@@ -5,7 +5,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Arcane {% block title %} {% endblock %}</title>
+		<title>{% block title %} {% endblock %}</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
 
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -43,6 +43,10 @@
 			body {
 				/* height: 100%; */
 				background-image: linear-gradient(50deg, rgba(254, 253, 205, 1) 11.2%, rgba(163, 230, 255, 1) 91.1%);
+			}
+			
+			.bodyv2 {
+				background-image: radial-gradient( circle farthest-corner at 83.7% 4.3%,  rgba(173,0,171,1) 0%, rgba(15,51,92,1) 90% );
 			}
 
 			.card {
@@ -210,7 +214,7 @@
 
 				<h1>
 					<a href="/" class="d-flex align-items-center col-md-3 text-decoration-none">
-						CritiQs
+						critiQs
 					</a>
 				</h1>
 

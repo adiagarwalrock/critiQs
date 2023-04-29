@@ -3,7 +3,7 @@
 
 
 
-{% block title %} - Movie Detail {% endblock %}
+{% block title %} - TV Series Detail {% endblock %}
 
 {% block head %}
 
@@ -14,113 +14,231 @@
 {% block body %}
 
 
-<h1>{{series.title}} </h1>
-<img src="https://image.tmdb.org/t/p/original{{series.backdrop_path}}" height="400" width="400">
+<section class="my-3 body" style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: medium;">
+<center>
+<h1>{{series.name}} </h1>
+<img src="https://image.tmdb.org/t/p/original{{series.backdrop_path}}" height="400" width="400" alt="{{series.name}}">
 
 
 <p>
-    <b>Budget: </b> {{series.budget}}
-    <b>Generes: </b>
-    {% for i in series.genres %}
-    {{i.name}}
-    {% endfor %}
-    <b>Homepage: </b> {{series.homepage}}
-    <b>Languages Available: </b>
+
+    <ul>
+        <!-- <b>Generes: </b> -->
+       <b> {% for i in series.genres %}
+        <a href="{% url 'genre_content' i.id i.name %}">{{i.name}}</a> &nbsp;&nbsp;
+        {% endfor %}
+    </b>    
+    </ul>
+    <ul>   
+        <b>{{series.overview}}
+            </b>
+    </ul>
+
+    <!-- {%if series.budget %}
+    <ul> <b>Budget: </b> {{series.budget}} </ul>
+    {% endif %} -->
+    
+   
+
+<ul>
+    {% if series.homepage %}
+    <b>Homepage: </b> 
+        <a href="{{series.homepage}}">{{series.homepage}}</a>
+    {% endif %}</ul>
+
+<ul><b>Languages Available: </b>
     {% for i in series.spoken_languages %}
     {{i.english_name}}
-    {% endfor %}
-    <b>Description: </b> {{series.overview}}
-    <b>Date Released: </b> {{series.release_date}}
-    <b>Running time: </b> {{series.runtime}}
+    {% endfor %}</ul>
+   
+        <ul> <b>Date Released: </b> {{series.first_air_date}}</ul>
+            <ul> <b>Running time: </b> {{series.last_episode_to_air.runtime}}</ul>
 
 </p>
 
 
 
 
-<hr>
+<!-- <hr/> -->
 
-
-
-<h2>Cast</h2>
-<div class="carousel-inner">
-    <div class="carousel-item active">
-        <div class="container">
-            <div class="row">
-                {% for cast in credits %}
-                <div class="card" style="width: 12rem;">
-                    {%if cast.profile_path %}
-
-                    <img src="https://image.tmdb.org/t/p/w500{{cast.profile_path}}" class="card-img-top img-thumbnail"
-                        height="200" alt="{{cast.name}} original image">
-                    {%else %}
-                    <img src="https://www.shutterstock.com/image-vector/male-default-placeholder-avatar-profile-260nw-387516193.jpg"
-                        class="card-img-top img-thumbnail" height="200" alt="{{cast.name}} original image">
-                    {%endif%}
-
-                    <p>
-                        <span class="badge bg-primary">{{cast.name}}</span>
-                        <span class="badge bg-success">{{cast.character}}</span>
-                    </p>
-
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<hr />
+<br>
 
 <p>
-<h2>Similar</h2>
+<h2 style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: xx-large;">Main Cast</h2>
 <div class="carousel-inner">
-    <div class="carousel-item active">
-        <div class="container">
-            <div class="row">
-                {% for item in similar %}
+<div class="carousel-item active">
+<!-- <div class="container horizontal-scrollable"> -->
+    <div class="container-fluid">
+    <div class="row">
+        <ul class="list-group list-group-flush list-group-horizontal position-relative overflow-auto">
+<!-- <div class="row"> -->
+{% for cast in credits %}
+<div class="col-3" style="width: 12rem;">
+    {%if cast.profile_path %}
+   
+    <img src="https://image.tmdb.org/t/p/w500{{cast.profile_path}}" class="ratio ratio-1x1 rounded-circle overflow-hidden" height="200"
+         alt="{{cast.name}} original image"> 
+        {%else %}
+        <img src="https://www.shutterstock.com/image-vector/male-default-placeholder-avatar-profile-260nw-387516193.jpg" class="ratio ratio-1x1 rounded-circle overflow-hidden" height="200"
+        alt="{{cast.name}} original image"
+        >
+        {%endif%}
+        
+        <p>
+            <span class="badge name" style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: medium; color: black;"><b>{{cast.name}}</b></span>
+            <br>
+            <span class="badge name" style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: medium; color: #0000008A;"> {{cast.character}}</span>
+            <br>
+        </p>
+    
+</div>
+{% endfor %}
+        </ul>
+</div>
+</div>
+</div>
+</div>
+</p>
 
-                <div class="card" style="width: 12rem;">
-                    <img src="https://image.tmdb.org/t/p/w500/{{item.poster_path}}" class="card-img-top img-thumbnail"
-                        height="200" alt="{{item.title}} original image">
+</center>
 
-                    <p>
-                        <span class="badge bg-primary">⭐ {{item.vote_average}}</span>
-                        {% if item.adult %}
-                        <span class="badge bg-danger">+18</span>
-                        {% endif %}
-                        <span class="badge bg-success">{{item.original_language}}</span>
-                    </p>
 
-                </div>
-                {% endfor %}
-            </div>
+<br>
+<!-- <hr /> -->
+<center>
+<p>
+<h2>Similar Series</h2>
+</center>
+
+
+
+
+<div class="container mb-3">
+
+<!-- <hr/>    -->
+<section class="my-1">
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="display-4 mb-2">Similar Series</h2>
         </div>
     </div>
-</div>
 
+    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center">
+        {% for item in similar %}
+        <div class="col mb-2">
+            <!-- series Card -->
+            <div class="card h-100 border-0">
+                <a href="{% url 'series_details' item.id %}">
+                    <div class="position-relative">
+                        <img src="https://image.tmdb.org/t/p/w500{{item.poster_path}}"
+                            class="card-img-top rounded-3 shadow" alt="{{item.name}}"
+                            style="height: 300px; object-fit: cover;" />
+                        <div class="position-absolute top-0 end-0 m-2">
+                            <span class="badge badge-custom">
+                                <i class="bi bi-star-fill" ></i>
+                                {{ item.vote_average }}
+                            </span>
+                        </div>
+                        <div class="tooltip-body d-none">
+                            <div>
+                                <div>
+                                    <div class="">
+                                        <h6>series Name : {{item.name}}</h6>
+                                    </div>
+                                    <div>
+                                        <span class="">
+                                            <h6>Release Date : 🕔
+                                                {{item.release_date}}
+                                            </h6>
+                                        </span>
+                                        {%if item.adult%}
+                                        <span class="badge bg-warning text-dark rounded-pill">+18 </span>
+                                        {%endif%}
+                                    </div>
+                                    <div class="">
+                                        <h6> Average Rating: {{item.vote_average}}</h6>
+                                    </div>
+                                    <div class="">
+                                        <h6> Genres: {% for i in item.genres %}
+                    {{i.name}}
+                    {% endfor %}</h6>
+                  
+                                    </div>
+                                    <div class="">
+                                        <h6> Duration : {{item.runtime}}</h6>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <p class="text-light">
+                                        </h6>overview : {{item.overview|truncatewords:20}}</>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- series Card -->
 
-<hr>
+        </div>
+        {% endfor %}
+    </div>
 
+</section>
+
+<br>
 <p>
 
 <h2>Comments</h2>
 
-<h3>User Comments</h3>
+<br>
+<!-- <h3>User Comments</h3> -->
 
 {% for comment in comments %}
-<p>
 
+<div class="container">
+    <div class="d-flex row">
+        <div class="col-md-8">
+            <div class="d-flex flex-column comment-section">
+                <div>
+                    <div class="d-flex flex-row user-info">
+                        <div class="d-flex flex-column justify-content-start ml-2">
+                            <span class="d-block font-weight-bold name">
+                                {{comment.user.username}}
+                            </span>
+                            <span class="date text-black-50">
+                                {{comment.date_created}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <p class="comment-text">{{comment.body}}</p>
+                    </div>
+                </div>
+               
+                <div>
+                    <div class="d-flex flex-row align-items-start"><img class=""  width="40">
+                        <textarea class="form-control ml-1 opacity-100" ></textarea>
+                    </div>
+                    <br>
+                    <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button>
+                        &nbsp; &nbsp;<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <p>
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">{{comment.user.username}}</h5>
+        <h4 class="card-title">{{comment.user.username}}</h4>
         <span class="card-subtitle mb-2 text-muted">{{comment.date_created}}</span>
         <p class="card-text">{{comment.body}}</p>
     </div>
 </div>
-</p>
+</p> -->
 {% endfor %}
 
 
@@ -137,10 +255,13 @@
 </p>
 
 {% else %}
+<br>
 <p>
-    <a href="{% url 'login' %}" class="btn btn-primary">Login to Comment</a>
+    
+    &nbsp;&nbsp;<a href="{% url 'login' %}" class="btn btn-primary">Login to Comment</a>
 
 </p>
+</section>
 
 {% endif %}
 
