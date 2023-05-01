@@ -10,16 +10,73 @@
 - This web app is a great tool for cinephiles to discover new movies and shows, share their opinions, and stay up to date on the latest releases.
 
 
-## Project Structure
+## Core Team Members
 
-- backend/
-  - node_modules/
-  - package.json
-  - server.js
-- frontend/
-  - node_modules/
-  - public/
-  - src/
-    - App.js
-    - index.js
-  - package.json
+- [Aditya Agarwal](https://github.com/adiagarwalrock)
+- [Feenel Doshi](https://github.com/feneel)
+- [Pratik Parmar](https://github.com/pratik-parmar)
+- [Shuchi Mehta](https://github.com/itsshuchimehta)
+- [Surya Nediyedth](https://github.com/Surya7612)
+
+
+
+## Get Started Locally
+
+
+1. Clone the Git repository:
+
+    ```
+    git clone https://github.com/adiagarwalrock/critiQs.git
+    ```
+
+2. Create a virtual environment for the project:
+
+    ```
+    python -m venv venv
+    ```
+
+3. Activate the virtual environment:
+
+    - On Mac/Linux:
+
+        ```
+        source venv/bin/activate
+        ```
+
+    - On Windows:
+
+        ```
+        venv\Scripts\activate
+        ```
+
+4. Install Django and other required packages:
+
+    ```
+    pip install -r requirements.txt
+    ```
+
+    - IF YOU GET AN ERROR WHILE INSTALLING `psycopg2`, RUN THE FOLLOWING COMMAND:
+
+        ```
+        pip install psycopg2-binary
+        ```
+    - IF YOU GET AN ERROR WHILE INSTALLING VIA `requirements.txt`, RUN THE FOLLOWING COMMANDS:
+
+        ```
+        pip install django drf-yasg requests djangorestframework django-cors-headers
+        ```
+
+5. Start the Django app:
+
+    ```
+    python manage.py runserver
+    ```
+
+You can now access your **critiQs** app at http://127.0.0.1:8000/.
+
+## Tech Stack
+
+- **Frontend**: HTML, CSS, Bootstrap, JavaScript, jQuery
+- **Backend**: Django, SQLite
+- **APIs**: [TMDb API](https://developers.themoviedb.org/3/getting-started/introduction)
+- **Deployment**: Heroku (coming soon)
