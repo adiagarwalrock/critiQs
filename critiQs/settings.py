@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/New_York"
 
 USE_I18N = True
 
@@ -171,7 +171,8 @@ GENERES = requests.get("https://api.themoviedb.org/3/genre/movie/list?api_key=20
                        headers={'Content-Type': 'application/json'}).json()['genres']
 
 
-MOVIE_API_KEY = 'f6792b478e6716a30e6af1fb17c30419'
+MOVIE_API_KEY = 'f6792b478e6716a30e6af1fb17c30419'              # Aditya's API key
+# MOVIE_API_KEY = '21d42e18c4ee8e8d84db4496279d10ba'              # Pratik's API key
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
