@@ -13,7 +13,7 @@
 ## Core Team Members
 
 - [Aditya Agarwal](https://github.com/adiagarwalrock)
-- [Feenel Doshi](https://github.com/feneel)
+- [Feneel Doshi](https://github.com/feneel)
 - [Pratik Parmar](https://github.com/pratik-parmar)
 - [Shuchi Mehta](https://github.com/itsshuchimehta)
 - [Surya Nediyedth](https://github.com/Surya7612)
