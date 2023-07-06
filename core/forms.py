@@ -15,7 +15,7 @@ class CommentForm(forms.ModelForm):
             attrs={
                 'class': 'form-control',
                 'placeholder': 'What do you think...?',
-                'rows': 4,
+                'rows': 2,
             }
         )
     )

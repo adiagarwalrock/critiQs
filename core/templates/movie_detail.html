@@ -27,7 +27,6 @@
 		box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 		backdrop-filter: blur(7px);
 		-webkit-backdrop-filter: blur(18px);
-
 	}
 </style>
 
@@ -211,68 +210,66 @@
 
 		</section>
 
-		<br>
 		<p>
 
-		<h2>Comments</h2>
-
-		<br>
-		<!-- <h3>User Comments</h3> -->
-
-		{% for comment in comments %}
-
-		<div class="d-flex row">
-			<div class="col-md-8">
-				<div class="d-flex flex-column comment-section">
-					<div>
-						<div class="d-flex flex-row user-info">
-							<div class="d-flex flex-column justify-content-start ml-2">
-								<span class="d-block font-weight-bold name">
-									{{comment.user.username}}
-								</span>
-								<span class="date text-black-50">
-									{{comment.date_created}}
-								</span>
-							</div>
-						</div>
-						<div class="mt-2">
-							<p class="comment-text">{{comment.body}}</p>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-		{% endfor %}
-
+		<h2>Comments ({{ comments | length }})</h2>
 
 		{% if user.is_authenticated %}
-		<p>
+		<ul class="list-group list-group-flush">
 
-		<form method="post">
-			{% csrf_token %}
-			<div class="my-1">
-				<div class="my-1">
-					{{form.body}}
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<div class="ms-2 me-auto">
+					<div class="fw-bold">
+						<form action="" method="POST">
+							{% csrf_token %}
+							<span>
+								<img width="30" height="30"
+									src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/external-user-interface-kiranshastry-gradient-kiranshastry.png"
+									alt="external-user-interface-kiranshastry-gradient-kiranshastry" />
+
+								<textarea name="body" cols="60" rows="2" class="form-control"
+									placeholder="What do you think...?" required id="id_body"></textarea>
+								<div class="my-1">
+									<button type="submit" class="btn btn-primary btn-sm">Post</button>
+								</div>
+
+							</span>
+						</form>
+					</div>
 				</div>
+			</li>
+			{% else %}
+			<div>
+				<a href="{% url 'login' %}" class="btn btn-primary">Login to Comment</a>
 			</div>
-			<div class="my-1">
-				<button type="submit" class="btn btn-primary">Post comment
-			</div>
-			</button>
-		</form>
-		</p>
+			{% endif %}
 
-		{% else %}
 
-		<div>
-			&nbsp;&nbsp;<a href="{% url 'login' %}" class="btn btn-primary">Login to Comment</a>
-		</div>
+			{% for comment in comments %}
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<div class="ms-2 me-auto">
+					<div class="fw-bold">
+						<span>
+							<img width="30" height="30"
+								src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/external-user-interface-kiranshastry-gradient-kiranshastry.png"
+								alt="external-user-interface-kiranshastry-gradient-kiranshastry" />
+						</span>
+						<span>
+							{{ comment.user.username | capfirst }}
+						</span>
+					</div>
+					<div>
+						{{ comment.body }}
+					</div>
+				</div>
+				<span class="badge bg-primary rounded-pill">{{ comment.date_created | naturaltime }}</span>
+			</li>
+			{% endfor %}
+		</ul>
 
 	</div>
 </div>
 
-{% endif %}
 
 
 {% endblock %}
