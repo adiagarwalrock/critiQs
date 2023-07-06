@@ -43,63 +43,69 @@
 		{% block head %} {% endblock %}
 	</head>
 
-	<body>
-		<div class="container">
-			<header
-				class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between pt-3 border-bottom">
+	<body class="gradient-card">
+		<header>
+			<div class="nav-card container my-2 py-2">
 
-				<h1>
-					<a href="/" class="d-flex align-items-center col-md-3 text-decoration-none">
-						critiQs
-					</a>
-				</h1>
+				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
 
-				<ul class="nav col-12 col-md-auto justify-content-center">
-					<li><a href="{% url 'movies' %}" class="nav-link px-2">Movies</a></li>
-					<li><a href="{% url 'series' %}" class="nav-link px-2">TV Shows</a></li>
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							Genre
+					<h1>
+						<a href="/" class="d-flex align-items-center col-md-3 text-decoration-none text-light">
+							critiQs
 						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							{% for item in genres %}
+					</h1>
 
-							<li><a class="dropdown-item"
-									href="{% url 'genre_content' item.id item.name %}">{{item.name}}</a></li>
-							{% endfor %}
-						</ul>
-					</li>
-				</ul>
+					<ul class="nav col-12 col-md-auto justify-content-center">
+						<li><a href="{% url 'movies' %}" class="nav-link px-2 text-light">Movies</a></li>
+						<li><a href="{% url 'series' %}" class="nav-link px-2 text-light">TV Shows</a></li>
+						<li class="nav-item dropdown">
+							<a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">
+								Genre
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								{% for item in genres %}
 
-				<div class="col-md-0 text-end">
-
-					{% if user.is_authenticated %}
-
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false">
-						{{user.username}}
-					</a>
-					<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-						<li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+								<li><a class="dropdown-item"
+										href="{% url 'genre_content' item.id item.name %}">{{item.name}}</a></li>
+								{% endfor %}
+							</ul>
+						</li>
 					</ul>
-					{% else %}
-					<a href="{% url 'login' %}" type="button" class="btn btn-outline-primary me-2">Login</a>
-					<a href="{% url 'signup' %}" type="button" class="btn btn-primary">Sign-up</a>
-					{% endif %}
+
+					<div class="col-md-0 text-end">
+						{% if user.is_authenticated %}
+						<div class="dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+								data-bs-toggle="dropdown" aria-expanded="false">
+								{{user.username}}
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+								<li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+							</ul>
+						</div>
+						{% else %}
+						<div class="input-group">
+							<a href="{% url 'login' %}" type="button" class="btn btn-outline-light">Login</a>
+							<a href="{% url 'signup' %}" type="button" class="btn btn-light">Sign-up</a>
+						</div>
+						{% endif %}
+					</div>
 				</div>
-			</header>
-		</div>
+			</div>
+		</header>
+
+
 
 		<main>
-			<div>
+			<div class="py-1 mb-2">
 				{% block body %} {% endblock %}
-			</div>
+				</divp>
 		</main>
 
 
 
-		<footer class="bg-dark text-white mt-2 pt-4 navbar-fixed-bottom">
+		<footer class="text-white pt-4 mt-3 navbar-fixed-bottom">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 mb-4 mb-md-0">
