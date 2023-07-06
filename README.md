@@ -80,3 +80,7 @@ You can now access your **critiQs** app at http://127.0.0.1:8000/.
 - **Backend**: Django, SQLite
 - **APIs**: [TMDb API](https://developers.themoviedb.org/3/getting-started/introduction)
 - **Deployment**: Heroku (coming soon)
+
+## Database Schema
+
+![Database Schema](./docs/Critiqs.svg)

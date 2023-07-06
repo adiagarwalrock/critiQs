@@ -187,7 +187,7 @@ class MovieDetailView(ContentDetailView):
         movie_id = str(self.kwargs['movie_id'])
         kwargs['movie'] = get_movie_detail(movie_id)
 
-        comments = Comment.objects.filter(content_id=movie_id)
+        comments = Comment.objects.filter(content_id=movie_id).order_by('-date_created')
         kwargs['comments'] = comments
 
         kwargs['genres'] = settings.GENERES
