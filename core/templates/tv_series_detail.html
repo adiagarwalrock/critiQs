@@ -25,6 +25,10 @@
         backdrop-filter: blur(7px);
         -webkit-backdrop-filter: blur(18px);
     }
+
+    .img-fluid {
+        border-radius: 10px;
+    }
 </style>
 
 <div class="container">
@@ -48,36 +52,40 @@
                             </div>
                             <div class="mb-3">
                                 {% for i in series.genres %}
-                                <a href="{% url 'genre_content' i.id i.name %}" class="badge bg-primary">{{i.name}}</a>
+                                <a href="{% url 'genre_content' i.id i.name %}" style="text-decoration: none;"
+                                    class="badge bg-primary">{{i.name}}</a>
                                 {% if not forloop.last %}&nbsp;{% endif %}
                                 {% endfor %}
                             </div>
                             <div class="mb-3">
-                                <p>📜 {{series.overview}}</p>
+                                <span>📜 Overview: </span>
+                                {{series.overview}}
                             </div>
                             <div class="mb-3">
                                 {% if series.budget %}
-                                <span class="">Budget: 💵 </span>
-                                {{series.budget}}
+                                <span class="">💵 Budget: USD </span>
+                                {{series.budget|intcomma}}
                                 {% endif %}
                             </div>
                             <div class="mb-3">
-                                <span class="">Languages Available: 🌏 </span>
+                                <span class="">🌏 Languages Available: </span>
                                 {% for i in series.spoken_languages %}
                                 {{i.english_name}}
                                 {% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                             </div>
                             <div class="mb-3">
-                                <span class="">Date Released: 📆 </span>
-                                {{series.first_air_date}}
+                                <span class="">📆 Date Released: </span>
+                                {{series.release_date}}
                             </div>
                             <div class="mb-3">
-                                <span class=""> Seasons: ⌚ </span>
-                                {{series.number_of_seasons}}
+                                {% if series.runtime %}
+                                <span class="">⌚ Running Time: </span>
+                                {{series.runtime}} mins
+                                {% endif %}
                             </div>
                             <div>
-                                <span class="">Vote Average: ⭐ </span>
+                                <span class="">⭐ Vote Average: </span>
                                 {{series.vote_average}}
                             </div>
                         </div>
@@ -95,7 +103,7 @@
         </div>
 
         <div class="container">
-            <div class="row">
+            <div class="row card">
                 <div class="list-group list-group-flush list-group-horizontal position-relative overflow-auto">
                     {% for cast in credits %}
                     <div class="list-group-item">
@@ -126,7 +134,7 @@
     </section>
 
 
-    <div class=" mb-3">
+    <div class="mb-3">
 
         <section class="my-1">
 
@@ -143,9 +151,14 @@
                     <div class="card h-100 border-0">
                         <a href="{% url 'series_details' item.id %}">
                             <div class="position-relative">
+                                {% if item.poster_path %}
                                 <img src=https://image.tmdb.org/t/p/w500{{item.poster_path}}
                                     class="card-img-top rounded-3 shadow" alt="{{item.name}}"
                                     style="height: 300px; object-fit: cover;" />
+                                {% else %}
+                                <img src="{% static 'img/placeholder.png' %}" class="card-img-top rounded-3 shadow"
+                                    alt="{{item.name}}" style="height: 300px; object-fit: cover;" />
+                                {% endif %}
                                 <div class="position-absolute top-0 end-0 m-2">
                                     <span class="badge badge-custom">
                                         <i class="bi bi-star-fill"></i>
@@ -156,7 +169,7 @@
                                     <div>
                                         <div>
                                             <div class="">
-                                                <h6>Movie Name : {{item.title}}</h6>
+                                                <h6>Movie Name: {{item.title}}</h6>
                                             </div>
                                             <div>
                                                 <span class="">
@@ -200,68 +213,63 @@
 
         </section>
 
-        <br>
-        <p>
+        <section class="trending-card my-4 p-4">
+            <h2>Comments ({{ comments | length }})</h2>
 
-        <h2>Comments</h2>
+            {% if user.is_authenticated %}
+            <ul class="list-group list-group-flush img-fluid">
 
-        <br>
-        <!-- <h3>User Comments</h3> -->
+                <li class="list-group-item align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <span>
+                                    <span class="fw-bold my-1">Commenting as @{{user.username|capfirst}}</span>
+                                    <textarea name="body" rows="2" class="form-control"
+                                        placeholder="What do you think...?" required id="id_body"></textarea>
+                                    <div class="my-1 justify-content-center">
+                                        <button type="submit" class="btn btn-primary btn-sm">Post</button>
+                                    </div>
 
-        {% for comment in comments %}
-
-        <div class="d-flex row">
-            <div class="col-md-8">
-                <div class="d-flex flex-column comment-section">
-                    <div>
-                        <div class="d-flex flex-row user-info">
-                            <div class="d-flex flex-column justify-content-start ml-2">
-                                <span class="d-block font-weight-bold name">
-                                    {{comment.user.username}}
                                 </span>
-                                <span class="date text-black-50">
-                                    {{comment.date_created}}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <p class="comment-text">{{comment.body}}</p>
+                            </form>
                         </div>
                     </div>
-
+                </li>
+                {% else %}
+                <div>
+                    <a href="{% url 'login' %}" class="btn btn-primary">Login to Comment</a>
                 </div>
-            </div>
-        </div>
-        {% endfor %}
+                {% endif %}
 
 
-        {% if user.is_authenticated %}
-        <p>
-
-        <form method="post">
-            {% csrf_token %}
-            <div class="my-1">
-                <div class="my-1">
-                    {{form.body}}
-                </div>
-            </div>
-            <div class="my-1">
-                <button type="submit" class="btn btn-primary">Post comment
-            </div>
-            </button>
-        </form>
-        </p>
-
-        {% else %}
-
-        <div>
-            &nbsp;&nbsp;<a href="{% url 'login' %}" class="btn btn-primary">Login to Comment</a>
-        </div>
+                {% for comment in comments %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">
+                            <span>
+                                <img width="30" height="30"
+                                    src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/external-user-interface-kiranshastry-gradient-kiranshastry.png"
+                                    alt="external-user-interface-kiranshastry-gradient-kiranshastry" />
+                            </span>
+                            <span>
+                                {{ comment.user.username | capfirst }}
+                            </span>
+                        </div>
+                        <div>
+                            {{ comment.body }}
+                        </div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">{{ comment.date_created | naturaltime }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
 
     </div>
 </div>
 
-{% endif %}
 
 
 {% endblock %}

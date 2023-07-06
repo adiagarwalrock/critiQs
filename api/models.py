@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model as user_model
 from django.db import models
 from django.urls import reverse
+from django.template.defaultfilters import truncatechars
 
 User = user_model()
 
@@ -17,6 +18,9 @@ class Comment(models.Model):
     def get_absolute_url(self):
         return reverse('movie_details', args=[str(self.content_id)])
 
+    @property
+    def short_description(self):
+        return truncatechars(self.body, 35)
 
 class Genre(models.Model):
     name = models.CharField(max_length=255)
